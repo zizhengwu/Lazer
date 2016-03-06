@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  facebookfeed2
-//
-//  Created by Brian Voong on 2/20/16.
-//  Copyright © 2016 letsbuildthatapp. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
