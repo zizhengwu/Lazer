@@ -67,8 +67,7 @@
 				2477D19D1C8D099000A4D6BF /* FeedCell.swift */,
 				2477D19F1C8D0A1100A4D6BF /* Extension.swift */,
 			);
-			name = reader;
-			path = facebookfeed2;
+			path = reader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = facebookfeed2/Info.plist;
+				INFOPLIST_FILE = reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.reader;
@@ -262,7 +261,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = facebookfeed2/Info.plist;
+				INFOPLIST_FILE = reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.reader;
