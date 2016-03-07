@@ -78,6 +78,18 @@ class FeedCell: UICollectionViewCell {
         return textView
     }()
     
+    let titleTextView: UITextView = {
+        let textView = UITextView()
+        textView.text = "Meanwhile, Beast turned to the dark side."
+        textView.font = UIFont.systemFontOfSize(30)
+        textView.scrollEnabled = false
+        textView.userInteractionEnabled = false
+        textView.textColor = UIColor.whiteColor()
+        textView.backgroundColor = UIColor.clearColor()
+        
+        return textView
+    }()
+    
     let statusImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "zuckdog")
@@ -94,6 +106,7 @@ class FeedCell: UICollectionViewCell {
         addSubview(nameLabel)
         addSubview(profileImageView)
         addSubview(statusTextView)
+        addSubview(titleTextView)
         
         // Horizontal constraints
         addConstraintsWithFormat("H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
@@ -102,10 +115,14 @@ class FeedCell: UICollectionViewCell {
         
         addConstraintsWithFormat("H:|[v0]|", views: statusImageView)
         
+        addConstraintsWithFormat("H:|[v0]|", views: titleTextView)
+        
         // Vertical constrains
         addConstraintsWithFormat("V:|[v0(200)]-8-[v1(44)]-4-[v2]|", views: statusImageView, profileImageView, statusTextView)
         
         addConstraintsWithFormat("V:|[v0]-8-[v1(44)]", views: statusImageView, nameLabel)
+        
+        addConstraintsWithFormat("V:[v0]-8-[v1]", views: titleTextView, nameLabel)
         
     }
     
