@@ -195,14 +195,14 @@ class FeedCell: UICollectionViewCell {
     func setupViews() {
         backgroundColor = UIColor.whiteColor()
         
+        addSubview(statusImageView)
         addSubview(nameLabel)
         addSubview(profileImageView)
         addSubview(statusTextView)
-        addSubview(statusImageView)
         addSubview(likesCommentsLabel)
         addSubview(dividerLineView)
         
-        
+        // Horizontal constraints
         addConstraintsWithFormat("H:|-8-[v0(44)]-8-[v1]|", views: profileImageView, nameLabel)
         
         addConstraintsWithFormat("H:|-4-[v0]-4-|", views: statusTextView)
@@ -212,14 +212,14 @@ class FeedCell: UICollectionViewCell {
         addConstraintsWithFormat("H:|-12-[v0]|", views: likesCommentsLabel)
         
         addConstraintsWithFormat("H:|-12-[v0]-12-|", views: dividerLineView)
+        
+        
+        // Vertical constrains
+        addConstraintsWithFormat("V:|[v0(200)]-8-[v1(44)]-4-[v2]-8-[v3(24)]-8-[v4(0.4)]|", views: statusImageView, profileImageView, statusTextView, likesCommentsLabel, dividerLineView)
+        
+        addConstraintsWithFormat("V:|[v0]-8-[v1(44)]", views: statusImageView, nameLabel)
 
-        //button constraints
-        addConstraintsWithFormat("V:|-12-[v0]", views: nameLabel)
-        
-        
-        
-        addConstraintsWithFormat("V:|-8-[v0(44)]-4-[v1]-4-[v2(200)]-8-[v3(24)]-8-[v4(0.4)]|", views: profileImageView, statusTextView, statusImageView, likesCommentsLabel, dividerLineView)
-            }
+    }
     
 }
 
