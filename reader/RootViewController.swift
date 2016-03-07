@@ -10,6 +10,8 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        
         let postMark = Post()
         postMark.name = "Mark Zuckerberg"
         postMark.profileImageName = "zuckprofile"
