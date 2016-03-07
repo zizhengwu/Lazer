@@ -8,6 +8,7 @@ class ArticleContentViewController : UIViewController, UIWebViewDelegate {
     init(rssItem: RssItem) {
         self._rssItem = rssItem
         self._webView = UIWebView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+        self._webView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
         super.init(nibName: nil, bundle: nil)
     }

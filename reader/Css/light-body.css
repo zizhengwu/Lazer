@@ -37,6 +37,7 @@
         font-size: 80%;
         color: gray;
         display: block;
+        line-height: 200%;
     }
     a {
         font-weight: bold;
