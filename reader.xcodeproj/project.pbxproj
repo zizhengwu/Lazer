@@ -20,7 +20,7 @@
 		2477D19B1C8D095000A4D6BF /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		2477D19D1C8D099000A4D6BF /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		2477D19F1C8D0A1100A4D6BF /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		C7A85F301C78C137007E9A00 /* facebookfeed2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = facebookfeed2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7A85F301C78C137007E9A00 /* reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A85F331C78C137007E9A00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7A85F351C78C137007E9A00 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C7A85F3A1C78C137007E9A00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		C7A85F271C78C137007E9A00 = {
 			isa = PBXGroup;
 			children = (
-				C7A85F321C78C137007E9A00 /* facebookfeed2 */,
+				C7A85F321C78C137007E9A00 /* reader */,
 				C7A85F311C78C137007E9A00 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,12 +50,12 @@
 		C7A85F311C78C137007E9A00 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7A85F301C78C137007E9A00 /* facebookfeed2.app */,
+				C7A85F301C78C137007E9A00 /* reader.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C7A85F321C78C137007E9A00 /* facebookfeed2 */ = {
+		C7A85F321C78C137007E9A00 /* reader */ = {
 			isa = PBXGroup;
 			children = (
 				C7A85F331C78C137007E9A00 /* AppDelegate.swift */,
@@ -67,15 +67,16 @@
 				2477D19D1C8D099000A4D6BF /* FeedCell.swift */,
 				2477D19F1C8D0A1100A4D6BF /* Extension.swift */,
 			);
+			name = reader;
 			path = facebookfeed2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C7A85F2F1C78C137007E9A00 /* facebookfeed2 */ = {
+		C7A85F2F1C78C137007E9A00 /* reader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "facebookfeed2" */;
+			buildConfigurationList = C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "reader" */;
 			buildPhases = (
 				C7A85F2C1C78C137007E9A00 /* Sources */,
 				C7A85F2D1C78C137007E9A00 /* Frameworks */,
@@ -85,9 +86,9 @@
 			);
 			dependencies = (
 			);
-			name = facebookfeed2;
+			name = reader;
 			productName = facebookfeed2;
-			productReference = C7A85F301C78C137007E9A00 /* facebookfeed2.app */;
+			productReference = C7A85F301C78C137007E9A00 /* reader.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -105,7 +106,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "facebookfeed2" */;
+			buildConfigurationList = C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "reader" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -118,7 +119,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C7A85F2F1C78C137007E9A00 /* facebookfeed2 */,
+				C7A85F2F1C78C137007E9A00 /* reader */,
 			);
 		};
 /* End PBXProject section */
@@ -250,9 +251,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = facebookfeed2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.letsbuildthatapp.facebookfeed2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.reader;
+				PRODUCT_NAME = reader;
 			};
 			name = Debug;
 		};
@@ -261,16 +263,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = facebookfeed2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.letsbuildthatapp.facebookfeed2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.reader;
+				PRODUCT_NAME = reader;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "facebookfeed2" */ = {
+		C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "reader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7A85F401C78C137007E9A00 /* Debug */,
@@ -279,7 +282,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "facebookfeed2" */ = {
+		C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "reader" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7A85F431C78C137007E9A00 /* Debug */,
