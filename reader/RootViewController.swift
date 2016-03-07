@@ -63,6 +63,12 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         return feedCell
     }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let rssItem = RssItem(title: "", creator: "", pubDate: NSDate(), link: "", description: "", content: posts[indexPath.row].statusText!, imageHeading: "")
+        let articleContentViewController = ArticleContentViewController(rssItem: rssItem)
+        navigationController?.pushViewController(articleContentViewController, animated: true)
+    }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         

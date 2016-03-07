@@ -73,6 +73,8 @@ class FeedCell: UICollectionViewCell {
         textView.text = "Meanwhile, Beast turned to the dark side."
         textView.font = UIFont.systemFontOfSize(14)
         textView.scrollEnabled = false
+        textView.userInteractionEnabled = false
+        
         return textView
     }()
     
@@ -99,8 +101,6 @@ class FeedCell: UICollectionViewCell {
         addConstraintsWithFormat("H:|-4-[v0]-4-|", views: statusTextView)
         
         addConstraintsWithFormat("H:|[v0]|", views: statusImageView)
-        
-        
         
         // Vertical constrains
         addConstraintsWithFormat("V:|[v0(200)]-8-[v1(44)]-4-[v2]|", views: statusImageView, profileImageView, statusTextView)
