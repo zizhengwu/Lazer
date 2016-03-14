@@ -10,7 +10,7 @@ class FeedCell: UICollectionViewCell {
                 
                 let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(14)])
                 
-                attributedText.appendAttributedString(NSAttributedString(string: "\nDecember 18  •  San Francisco  •  ", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName:
+                attributedText.appendAttributedString(NSAttributedString(string: "\nDecember 18  •  San Francisco ", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName:
                     UIColor.rgb(155, green: 161, blue: 161)]))
                 
                 let paragraphStyle = NSMutableParagraphStyle()
@@ -18,10 +18,10 @@ class FeedCell: UICollectionViewCell {
                 
                 attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
                 
-                let attachment = NSTextAttachment()
-                attachment.image = UIImage(named: "globe_small")
-                attachment.bounds = CGRectMake(0, -2, 12, 12)
-                attributedText.appendAttributedString(NSAttributedString(attachment: attachment))
+//                let attachment = NSTextAttachment()
+//                attachment.image = UIImage(named: "globe_small")
+//                attachment.bounds = CGRectMake(0, -2, 12, 12)
+//                attributedText.appendAttributedString(NSAttributedString(attachment: attachment))
                 
                 nameLabel.attributedText = attributedText
                 
@@ -70,7 +70,7 @@ class FeedCell: UICollectionViewCell {
     
     let statusTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Meanwhile, Beast turned to the dark side."
+        textView.text = "Beast turned to the dark side"
         textView.font = UIFont.systemFontOfSize(14)
         textView.scrollEnabled = false
         textView.userInteractionEnabled = false
@@ -80,8 +80,8 @@ class FeedCell: UICollectionViewCell {
     
     let titleTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Meanwhile, Beast turned to the dark side."
-        textView.font = UIFont.systemFontOfSize(30)
+        textView.text = "Beast turned to the dark side"
+        textView.font = UIFont.systemFontOfSize(26)
         textView.scrollEnabled = false
         textView.userInteractionEnabled = false
         textView.textColor = UIColor.whiteColor()
