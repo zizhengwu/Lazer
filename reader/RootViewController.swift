@@ -6,6 +6,7 @@ let cellId = "cellId"
 class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var posts = [Post]()
+    var settingsView = SecondViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,20 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
+        
+        let btnName = UIButton()
+        btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
+        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.addTarget(self, action: Selector("settingsClicked:"), forControlEvents: .TouchUpInside)
+        
+        //.... Set Right/Left Bar Button item
+        let leftBarButton = UIBarButtonItem()
+        leftBarButton.customView = btnName
+        self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+    
+    func settingsClicked(sender: UIButton!) {
+        navigationController?.pushViewController(settingsView, animated: true)
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
