@@ -6,7 +6,7 @@ let cellId = "cellId"
 class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var posts = [Post]()
-    var settingsView = SecondViewController()
+    var settingsView = SettingsViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()

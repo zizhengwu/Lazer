@@ -1,6 +1,6 @@
 import UIKit
 
-class SecondViewController: UITableViewController {
+class SettingsViewController: UITableViewController {
     
     let Items = ["Altitude","Distance","Groundspeed"]
     
