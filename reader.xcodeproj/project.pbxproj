@@ -15,6 +15,7 @@
 		2484F6C71C9CFF160002C216 /* Css.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2484F6C61C9CFF150002C216 /* Css.swift */; };
 		2488E7B31C8D481A00B50581 /* Css in Resources */ = {isa = PBXBuildFile; fileRef = 2488E7B21C8D481A00B50581 /* Css */; };
 		24CE41361C9667620057B728 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CE41351C9667620057B728 /* SettingsViewController.swift */; };
+		24FE53751C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */; };
 		B35C85A5DA0503DF548F9B98 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECAA2AD7ADBBCB18A5703D9 /* Pods.framework */; };
 		C7A85F341C78C137007E9A00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A85F331C78C137007E9A00 /* AppDelegate.swift */; };
 		C7A85F361C78C137007E9A00 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A85F351C78C137007E9A00 /* RootViewController.swift */; };
@@ -31,6 +32,7 @@
 		2484F6C61C9CFF150002C216 /* Css.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Css.swift; path = reader/Model/Css.swift; sourceTree = "<group>"; };
 		2488E7B21C8D481A00B50581 /* Css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Css; sourceTree = "<group>"; };
 		24CE41351C9667620057B728 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = reader/Controller/SettingsViewController.swift; sourceTree = "<group>"; };
+		24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingSwitchTableViewCell.swift; path = reader/View/SettingSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		34DDF0BECBEEC4F8A29624B0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6D8C8D5A977A8A10AC4E433F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C7A85F301C78C137007E9A00 /* reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				2477D19D1C8D099000A4D6BF /* FeedCell.swift */,
+				24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				2477D19E1C8D099000A4D6BF /* FeedCell.swift in Sources */,
 				C7A85F361C78C137007E9A00 /* RootViewController.swift in Sources */,
 				24CE41361C9667620057B728 /* SettingsViewController.swift in Sources */,
+				24FE53751C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift in Sources */,
 				C7A85F341C78C137007E9A00 /* AppDelegate.swift in Sources */,
 				2484F6C71C9CFF160002C216 /* Css.swift in Sources */,
 				247CFF7C1C8D1149001596DB /* RssItem.swift in Sources */,

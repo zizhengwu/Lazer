@@ -4,27 +4,34 @@ class SettingsViewController: UITableViewController {
     
     let Items = ["Altitude","Distance","Groundspeed"]
     
+    let settingSwitchTableViewCellId = "settingSwitchTableViewCellId"
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.Items.count
+        return [3][section]
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
-        cell.textLabel?.text = self.Items[indexPath.row]
-        
-        let customSwitch = UISwitch(frame: CGRectZero)
-        cell.accessoryView = customSwitch
-        customSwitch.setOn(true, animated: true)
-        
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(settingSwitchTableViewCellId, forIndexPath: indexPath) as! SettingSwitchTableViewCell
+            cell.titleLabel?.text = ["Notification", "暗色", "更多字的测试"][indexPath.row]
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCellWithIdentifier(settingSwitchTableViewCellId, forIndexPath: indexPath) as! SettingSwitchTableViewCell
+            cell.titleLabel?.text = "ERROR"
+            return cell
+        }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.tableView = UITableView(frame: self.tableView.frame, style: .Grouped)
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.separatorStyle = .None
+        self.tableView.registerClass(SettingSwitchTableViewCell.self, forCellReuseIdentifier: settingSwitchTableViewCellId)
     }
     
     override func didReceiveMemoryWarning() {
