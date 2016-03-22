@@ -35,8 +35,8 @@ class SettingsProfileTableViewCell : UITableViewCell {
         }
         
         self.userNameLabel = UILabel()
-        self.userNameLabel!.textColor = UIColor(white: 0.85, alpha: 1)
-        self.userNameLabel!.font = UIFont.systemFontOfSize(20)
+        self.userNameLabel!.textColor = UIColor(white: 0.05, alpha: 1)
+        self.userNameLabel!.font = UIFont.boldSystemFontOfSize(20)
         self.contentView.addSubview(self.userNameLabel!)
         self.userNameLabel!.snp_makeConstraints{ (make) -> Void in
             make.top.equalTo(self.avatarImageView!.snp_bottom).offset(10)
