@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		24473E561CA2217D000B0AF9 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E551CA2217D000B0AF9 /* TagCell.swift */; };
-		24473E581CA221A3000B0AF9 /* TagPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */; };
+		24473E581CA221A3000B0AF9 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */; };
 		24473E5C1CA23582000B0AF9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E5B1CA23582000B0AF9 /* Tags.swift */; };
 		2477D19C1C8D095000A4D6BF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19B1C8D095000A4D6BF /* Post.swift */; };
 		2477D19E1C8D099000A4D6BF /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19D1C8D099000A4D6BF /* FeedCell.swift */; };
@@ -17,9 +17,6 @@
 		247CFF7E1C8D11C8001596DB /* ArticleContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */; };
 		2484F6C71C9CFF160002C216 /* Css.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2484F6C61C9CFF150002C216 /* Css.swift */; };
 		2488E7B31C8D481A00B50581 /* Css in Resources */ = {isa = PBXBuildFile; fileRef = 2488E7B21C8D481A00B50581 /* Css */; };
-		24CE41361C9667620057B728 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CE41351C9667620057B728 /* SettingsViewController.swift */; };
-		24FE53751C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */; };
-		24FE53771C9FBC76009A5B03 /* SettingsProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FE53761C9FBC76009A5B03 /* SettingsProfileTableViewCell.swift */; };
 		B35C85A5DA0503DF548F9B98 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECAA2AD7ADBBCB18A5703D9 /* Pods.framework */; };
 		C7A85F341C78C137007E9A00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A85F331C78C137007E9A00 /* AppDelegate.swift */; };
 		C7A85F361C78C137007E9A00 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A85F351C78C137007E9A00 /* RootViewController.swift */; };
@@ -29,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		24473E551CA2217D000B0AF9 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagCell.swift; path = reader/View/TagCell.swift; sourceTree = "<group>"; };
-		24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagPreferenceViewController.swift; path = reader/Controller/TagPreferenceViewController.swift; sourceTree = "<group>"; };
+		24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferenceViewController.swift; path = reader/Controller/PreferenceViewController.swift; sourceTree = "<group>"; };
 		24473E5B1CA23582000B0AF9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tags.swift; path = reader/Model/Tags.swift; sourceTree = "<group>"; };
 		2477D19B1C8D095000A4D6BF /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = reader/Model/Post.swift; sourceTree = "<group>"; };
 		2477D19D1C8D099000A4D6BF /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = reader/View/FeedCell.swift; sourceTree = "<group>"; };
@@ -38,9 +35,6 @@
 		247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleContentViewController.swift; path = reader/Controller/ArticleContentViewController.swift; sourceTree = "<group>"; };
 		2484F6C61C9CFF150002C216 /* Css.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Css.swift; path = reader/Model/Css.swift; sourceTree = "<group>"; };
 		2488E7B21C8D481A00B50581 /* Css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Css; sourceTree = "<group>"; };
-		24CE41351C9667620057B728 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = reader/Controller/SettingsViewController.swift; sourceTree = "<group>"; };
-		24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingSwitchTableViewCell.swift; path = reader/View/SettingSwitchTableViewCell.swift; sourceTree = "<group>"; };
-		24FE53761C9FBC76009A5B03 /* SettingsProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsProfileTableViewCell.swift; path = reader/View/SettingsProfileTableViewCell.swift; sourceTree = "<group>"; };
 		34DDF0BECBEEC4F8A29624B0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6D8C8D5A977A8A10AC4E433F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C7A85F301C78C137007E9A00 /* reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,8 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				2477D19D1C8D099000A4D6BF /* FeedCell.swift */,
-				24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */,
-				24FE53761C9FBC76009A5B03 /* SettingsProfileTableViewCell.swift */,
 				24473E551CA2217D000B0AF9 /* TagCell.swift */,
 			);
 			name = View;
@@ -91,8 +83,7 @@
 			children = (
 				C7A85F351C78C137007E9A00 /* RootViewController.swift */,
 				247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */,
-				24CE41351C9667620057B728 /* SettingsViewController.swift */,
-				24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */,
+				24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -271,18 +262,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24473E581CA221A3000B0AF9 /* TagPreferenceViewController.swift in Sources */,
+				24473E581CA221A3000B0AF9 /* PreferenceViewController.swift in Sources */,
 				247CFF7E1C8D11C8001596DB /* ArticleContentViewController.swift in Sources */,
 				2477D1A01C8D0A1100A4D6BF /* Extension.swift in Sources */,
 				2477D19C1C8D095000A4D6BF /* Post.swift in Sources */,
 				2477D19E1C8D099000A4D6BF /* FeedCell.swift in Sources */,
 				C7A85F361C78C137007E9A00 /* RootViewController.swift in Sources */,
-				24CE41361C9667620057B728 /* SettingsViewController.swift in Sources */,
 				24473E5C1CA23582000B0AF9 /* Tags.swift in Sources */,
-				24FE53751C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift in Sources */,
 				C7A85F341C78C137007E9A00 /* AppDelegate.swift in Sources */,
 				24473E561CA2217D000B0AF9 /* TagCell.swift in Sources */,
-				24FE53771C9FBC76009A5B03 /* SettingsProfileTableViewCell.swift in Sources */,
 				2484F6C71C9CFF160002C216 /* Css.swift in Sources */,
 				247CFF7C1C8D1149001596DB /* RssItem.swift in Sources */,
 			);

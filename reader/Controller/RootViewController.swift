@@ -3,10 +3,10 @@ import UIKit
 let cellId = "cellId"
 
 
-class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class RootViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var posts = [Post]()
-    var settingsView = SettingsViewController()
+    var settingsView = PreferenceViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,6 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         postGandhi.statusImageName = "gandhi_status"
         postGandhi.numLikes = 333
         postGandhi.numComments = 22
-
         
         posts.append(postMark)
         posts.append(postSteve)
@@ -57,7 +56,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let btnName = UIButton()
         btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.addTarget(self, action: #selector(FeedController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
         
         //.... Set Right/Left Bar Button item
         let leftBarButton = UIBarButtonItem()

@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var collectionView: UICollectionView!
     let flowLayout = UICollectionViewFlowLayout()
     let tagCellCellId = "tagCellCellId"
@@ -62,6 +62,7 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
         if kind == UICollectionElementKindSectionHeader {
             v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
             if v.subviews.count == 0 {
+                
                 self.avatarImageView = UIImageView()
                 self.avatarImageView!.backgroundColor = UIColor(white: 0.9, alpha: 0.3)
                 self.avatarImageView!.layer.borderWidth = 1.5
@@ -69,6 +70,7 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
                 self.avatarImageView!.layer.masksToBounds = true
                 self.avatarImageView!.layer.cornerRadius = 38
                 v.addSubview(self.avatarImageView!)
+                
                 self.avatarImageView!.snp_makeConstraints{ (make) -> Void in
                     make.centerX.equalTo(v)
                     make.centerY.equalTo(v).offset(-40)
@@ -79,6 +81,7 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
                 self.userNameLabel!.textColor = UIColor(white: 0.05, alpha: 1)
                 self.userNameLabel!.font = UIFont.boldSystemFontOfSize(20)
                 v.addSubview(self.userNameLabel!)
+                
                 self.userNameLabel!.snp_makeConstraints{ (make) -> Void in
                     make.top.equalTo(self.avatarImageView!.snp_bottom).offset(10)
                     make.centerX.equalTo(self.avatarImageView!)
@@ -90,12 +93,14 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
                 self.introduceLabel!.numberOfLines = 2
                 self.introduceLabel!.textAlignment = .Center
                 v.addSubview(self.introduceLabel!)
+                
                 self.introduceLabel!.snp_makeConstraints{ (make) -> Void in
                     make.top.equalTo(self.userNameLabel!.snp_bottom).offset(5)
                     make.centerX.equalTo(self.avatarImageView!)
                     make.left.equalTo(v).offset(15)
                     make.right.equalTo(v).offset(-15)
                 }
+                
                 self.userNameLabel!.text = "Zizheng Wu"
                 self.introduceLabel!.text = "me@zizhengwu.com"
             }
