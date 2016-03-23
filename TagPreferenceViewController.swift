@@ -3,7 +3,7 @@ import SnapKit
 
 class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var collectionView: UICollectionView!
-    
+    let tagCellCellId = "tagCellCellId"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -13,6 +13,7 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
         layout.itemSize = CGSize(width: 90, height: 120)
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView?.registerClass(TagCell.self, forCellWithReuseIdentifier: tagCellCellId)
 
         setupViews()
     }
@@ -22,8 +23,9 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(tagCellCellId, forIndexPath: indexPath) as! TagCell
         cell.backgroundColor = UIColor.orangeColor()
+        cell.name.text = "hello world"
         return cell
     }
     
@@ -51,4 +53,5 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
         
         flowLayout.invalidateLayout()
     }
+    
 }
