@@ -6,7 +6,7 @@ class TagCell : UICollectionViewCell {
     var name: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        
+        label.font = UIFont.systemFontOfSize(14)
         return label
     }()
     

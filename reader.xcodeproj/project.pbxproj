@@ -29,9 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		24473E551CA2217D000B0AF9 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
-		24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPreferenceViewController.swift; sourceTree = "<group>"; };
-		24473E591CA22E0F000B0AF9 /* FlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		24473E551CA2217D000B0AF9 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagCell.swift; path = reader/View/TagCell.swift; sourceTree = "<group>"; };
+		24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagPreferenceViewController.swift; path = reader/Controller/TagPreferenceViewController.swift; sourceTree = "<group>"; };
+		24473E591CA22E0F000B0AF9 /* FlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowLayout.swift; path = reader/View/FlowLayout.swift; sourceTree = "<group>"; };
 		24473E5B1CA23582000B0AF9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tags.swift; path = reader/Model/Tags.swift; sourceTree = "<group>"; };
 		2477D19B1C8D095000A4D6BF /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = reader/Model/Post.swift; sourceTree = "<group>"; };
 		2477D19D1C8D099000A4D6BF /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = reader/View/FeedCell.swift; sourceTree = "<group>"; };

@@ -5,7 +5,7 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
     var collectionView: UICollectionView!
     let flowLayout = FlowLayout()
     let tagCellCellId = "tagCellCellId"
-    let names =  ["hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world"]
+    let names =  ["hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology hello world hello world" ,"hello" ,"hello world"]
     var tags = [Tag]()
     
     override func viewDidLoad() {

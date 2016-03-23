@@ -57,7 +57,7 @@ class FeedController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let btnName = UIButton()
         btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.addTarget(self, action: Selector("settingsClicked:"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(FeedController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
         
         //.... Set Right/Left Bar Button item
         let leftBarButton = UIBarButtonItem()
