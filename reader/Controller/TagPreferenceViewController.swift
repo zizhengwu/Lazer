@@ -3,7 +3,7 @@ import SnapKit
 
 class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var collectionView: UICollectionView!
-    let flowLayout = FlowLayout()
+    let flowLayout = UICollectionViewFlowLayout()
     let tagCellCellId = "tagCellCellId"
     let names =  ["hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology hello world hello world" ,"hello" ,"hello world"]
     var tags = [Tag]()
@@ -62,9 +62,6 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
         if kind == UICollectionElementKindSectionHeader {
             v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
             if v.subviews.count == 0 {
-//                v.frame = CGRectMake(0, 0, self.view.frame.width, 180)
-//                v.center.x = collectionView.center.x
-//                v.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
                 self.avatarImageView = UIImageView()
                 self.avatarImageView!.backgroundColor = UIColor(white: 0.9, alpha: 0.3)
                 self.avatarImageView!.layer.borderWidth = 1.5

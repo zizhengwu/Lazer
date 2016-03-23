@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		24473E561CA2217D000B0AF9 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E551CA2217D000B0AF9 /* TagCell.swift */; };
 		24473E581CA221A3000B0AF9 /* TagPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */; };
-		24473E5A1CA22E0F000B0AF9 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E591CA22E0F000B0AF9 /* FlowLayout.swift */; };
 		24473E5C1CA23582000B0AF9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E5B1CA23582000B0AF9 /* Tags.swift */; };
 		2477D19C1C8D095000A4D6BF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19B1C8D095000A4D6BF /* Post.swift */; };
 		2477D19E1C8D099000A4D6BF /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19D1C8D099000A4D6BF /* FeedCell.swift */; };
@@ -31,7 +30,6 @@
 /* Begin PBXFileReference section */
 		24473E551CA2217D000B0AF9 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagCell.swift; path = reader/View/TagCell.swift; sourceTree = "<group>"; };
 		24473E571CA221A3000B0AF9 /* TagPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagPreferenceViewController.swift; path = reader/Controller/TagPreferenceViewController.swift; sourceTree = "<group>"; };
-		24473E591CA22E0F000B0AF9 /* FlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowLayout.swift; path = reader/View/FlowLayout.swift; sourceTree = "<group>"; };
 		24473E5B1CA23582000B0AF9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tags.swift; path = reader/Model/Tags.swift; sourceTree = "<group>"; };
 		2477D19B1C8D095000A4D6BF /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = reader/Model/Post.swift; sourceTree = "<group>"; };
 		2477D19D1C8D099000A4D6BF /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = reader/View/FeedCell.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 				24FE53741C9FB08C009A5B03 /* SettingSwitchTableViewCell.swift */,
 				24FE53761C9FBC76009A5B03 /* SettingsProfileTableViewCell.swift */,
 				24473E551CA2217D000B0AF9 /* TagCell.swift */,
-				24473E591CA22E0F000B0AF9 /* FlowLayout.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -279,7 +276,6 @@
 				2477D1A01C8D0A1100A4D6BF /* Extension.swift in Sources */,
 				2477D19C1C8D095000A4D6BF /* Post.swift in Sources */,
 				2477D19E1C8D099000A4D6BF /* FeedCell.swift in Sources */,
-				24473E5A1CA22E0F000B0AF9 /* FlowLayout.swift in Sources */,
 				C7A85F361C78C137007E9A00 /* RootViewController.swift in Sources */,
 				24CE41361C9667620057B728 /* SettingsViewController.swift in Sources */,
 				24473E5C1CA23582000B0AF9 /* Tags.swift in Sources */,
