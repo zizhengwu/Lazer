@@ -3,12 +3,14 @@ import SnapKit
 
 class TagCell : UICollectionViewCell {
     
-    let name: UILabel = {
+    var name: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         
         return label
     }()
+    
+    var interested: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,5 +29,6 @@ class TagCell : UICollectionViewCell {
             make.centerY.equalTo(self.contentView)
             make.centerX.equalTo(self.contentView)
         }
+        
     }
 }

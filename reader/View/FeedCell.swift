@@ -18,11 +18,6 @@ class FeedCell: UICollectionViewCell {
                 
                 attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedText.string.characters.count))
                 
-//                let attachment = NSTextAttachment()
-//                attachment.image = UIImage(named: "globe_small")
-//                attachment.bounds = CGRectMake(0, -2, 12, 12)
-//                attributedText.appendAttributedString(NSAttributedString(attachment: attachment))
-                
                 nameLabel.attributedText = attributedText
                 
             }
