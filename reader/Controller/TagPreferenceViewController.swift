@@ -7,6 +7,9 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
     let tagCellCellId = "tagCellCellId"
     let names =  ["hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology hello world hello world" ,"hello" ,"hello world"]
     var tags = [Tag]()
+    var avatarImageView: UIImageView?
+    var userNameLabel: UILabel?
+    var introduceLabel: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,28 +44,66 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
         self.flowLayout.sectionInset = UIEdgeInsetsMake(8, 8, 8, 8)
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: flowLayout)
+        collectionView.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
         collectionView?.registerClass(TagCell.self, forCellWithReuseIdentifier: tagCellCellId)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.whiteColor()
+        // if you don't do something about header size...
+        // ...you won't see any headers
+        self.flowLayout.headerReferenceSize = CGSizeMake(self.view.frame.width, 180)
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.view.addSubview(collectionView)
     }
+
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        var v : UICollectionReusableView! = nil
+        if kind == UICollectionElementKindSectionHeader {
+            v = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier:"Header", forIndexPath:indexPath)
+            if v.subviews.count == 0 {
+//                v.frame = CGRectMake(0, 0, self.view.frame.width, 180)
+//                v.center.x = collectionView.center.x
+//                v.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+                self.avatarImageView = UIImageView()
+                self.avatarImageView!.backgroundColor = UIColor(white: 0.9, alpha: 0.3)
+                self.avatarImageView!.layer.borderWidth = 1.5
+                self.avatarImageView!.layer.borderColor = UIColor(white: 1, alpha: 0.6).CGColor
+                self.avatarImageView!.layer.masksToBounds = true
+                self.avatarImageView!.layer.cornerRadius = 38
+                v.addSubview(self.avatarImageView!)
+                self.avatarImageView!.snp_makeConstraints{ (make) -> Void in
+                    make.centerX.equalTo(v)
+                    make.centerY.equalTo(v).offset(-40)
+                    make.width.height.equalTo(self.avatarImageView!.layer.cornerRadius * 2)
+                }
+                
+                self.userNameLabel = UILabel()
+                self.userNameLabel!.textColor = UIColor(white: 0.05, alpha: 1)
+                self.userNameLabel!.font = UIFont.boldSystemFontOfSize(20)
+                v.addSubview(self.userNameLabel!)
+                self.userNameLabel!.snp_makeConstraints{ (make) -> Void in
+                    make.top.equalTo(self.avatarImageView!.snp_bottom).offset(10)
+                    make.centerX.equalTo(self.avatarImageView!)
+                }
+                
+                self.introduceLabel = UILabel()
+                self.introduceLabel!.textColor = UIColor(white: 0.75, alpha: 1)
+                self.introduceLabel!.font = UIFont.systemFontOfSize(14)
+                self.introduceLabel!.numberOfLines = 2
+                self.introduceLabel!.textAlignment = .Center
+                v.addSubview(self.introduceLabel!)
+                self.introduceLabel!.snp_makeConstraints{ (make) -> Void in
+                    make.top.equalTo(self.userNameLabel!.snp_bottom).offset(5)
+                    make.centerX.equalTo(self.avatarImageView!)
+                    make.left.equalTo(v).offset(15)
+                    make.right.equalTo(v).offset(-15)
+                }
+                self.userNameLabel!.text = "Zizheng Wu"
+                self.introduceLabel!.text = "me@zizhengwu.com"
+            }
         }
-        
-        if UIInterfaceOrientationIsLandscape(UIApplication.sharedApplication().statusBarOrientation) {
-            //here you can do the logic for the cell size if phone is in landscape
-        } else {
-            //logic if not landscape
-        }
-        
-        flowLayout.invalidateLayout()
+        return v
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -75,4 +116,5 @@ class TagPreferenceViewController: UIViewController, UICollectionViewDelegateFlo
         tags[indexPath.row].selected = !tags[indexPath.row].selected
         self.collectionView.reloadData()
     }
+    
 }
