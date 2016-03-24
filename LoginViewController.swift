@@ -27,17 +27,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         return button
     }()
     
-    let showFriendsButton: UIButton = {
-        let button = UIButton(type: .System)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Show Friends", forState: .Normal)
-        button.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
-        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,17 +46,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         view.addSubview(loginButton)
         view.addSubview(userImageView)
         view.addSubview(nameLabel)
-        view.addSubview(showFriendsButton)
-        
-        showFriendsButton.addTarget(self, action: "showFriends", forControlEvents: .TouchUpInside)
         
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": userImageView]))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-80-[v0]-80-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": showFriendsButton]))
         
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-80-[v0]-80-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": loginButton]))
         
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[v0(100)]-8-[v1(30)]-8-[v2(50)]-8-[v3(44)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": userImageView, "v1": nameLabel, "v2": loginButton, "v3": showFriendsButton]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-8-[v0(100)]-8-[v1(30)]-8-[v2(50)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": userImageView, "v1": nameLabel, "v2": loginButton]))
         
         loginButton.delegate = self
     }
@@ -89,9 +74,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
                 }
             }
             
-//            let friendsController = FriendsController(collectionViewLayout: UICollectionViewFlowLayout())
-//            friendsController.friends = friends
-//            self.navigationController?.pushViewController(friendsController, animated: true)
             self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         })
     }
