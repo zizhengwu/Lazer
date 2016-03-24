@@ -54,8 +54,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
         
         let btnName = UIButton()
-        btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
         btnName.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
         
         //.... Set Right/Left Bar Button item

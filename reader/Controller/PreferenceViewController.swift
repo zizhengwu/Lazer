@@ -55,7 +55,6 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.view.addSubview(collectionView)
     }
-
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         var v : UICollectionReusableView! = nil
@@ -69,6 +68,10 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                 self.avatarImageView!.layer.borderColor = UIColor(white: 1, alpha: 0.6).CGColor
                 self.avatarImageView!.layer.masksToBounds = true
                 self.avatarImageView!.layer.cornerRadius = 38
+                let singleTap = UITapGestureRecognizer(target: self, action: #selector(PreferenceViewController.clickOnAvatar))
+                singleTap.numberOfTapsRequired = 1
+                self.avatarImageView!.userInteractionEnabled = true
+                self.avatarImageView!.addGestureRecognizer(singleTap)
                 v.addSubview(self.avatarImageView!)
                 
                 self.avatarImageView!.snp_makeConstraints{ (make) -> Void in
@@ -106,6 +109,10 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
             }
         }
         return v
+    }
+    
+    func clickOnAvatar() {
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

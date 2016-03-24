@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2404878C1CA281A00051DE01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2404878B1CA281A00051DE01 /* LoginViewController.swift */; };
+		241B68ED1CA365DA006FFEA0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241B68EA1CA365DA006FFEA0 /* FBSDKCoreKit.framework */; };
+		241B68EE1CA365DA006FFEA0 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241B68EB1CA365DA006FFEA0 /* FBSDKLoginKit.framework */; };
+		241B68EF1CA365DA006FFEA0 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241B68EC1CA365DA006FFEA0 /* FBSDKShareKit.framework */; };
 		24473E561CA2217D000B0AF9 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E551CA2217D000B0AF9 /* TagCell.swift */; };
 		24473E581CA221A3000B0AF9 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */; };
 		24473E5C1CA23582000B0AF9 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24473E5B1CA23582000B0AF9 /* Tags.swift */; };
@@ -25,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2404878B1CA281A00051DE01 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		241B68EA1CA365DA006FFEA0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		241B68EB1CA365DA006FFEA0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		241B68EC1CA365DA006FFEA0 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		24473E551CA2217D000B0AF9 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagCell.swift; path = reader/View/TagCell.swift; sourceTree = "<group>"; };
 		24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferenceViewController.swift; path = reader/Controller/PreferenceViewController.swift; sourceTree = "<group>"; };
 		24473E5B1CA23582000B0AF9 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tags.swift; path = reader/Model/Tags.swift; sourceTree = "<group>"; };
@@ -51,7 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				241B68EF1CA365DA006FFEA0 /* FBSDKShareKit.framework in Frameworks */,
 				B35C85A5DA0503DF548F9B98 /* Pods.framework in Frameworks */,
+				241B68ED1CA365DA006FFEA0 /* FBSDKCoreKit.framework in Frameworks */,
+				241B68EE1CA365DA006FFEA0 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +95,7 @@
 				C7A85F351C78C137007E9A00 /* RootViewController.swift */,
 				247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */,
 				24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */,
+				2404878B1CA281A00051DE01 /* LoginViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -129,6 +141,9 @@
 		C7A85F321C78C137007E9A00 /* reader */ = {
 			isa = PBXGroup;
 			children = (
+				241B68EA1CA365DA006FFEA0 /* FBSDKCoreKit.framework */,
+				241B68EB1CA365DA006FFEA0 /* FBSDKLoginKit.framework */,
+				241B68EC1CA365DA006FFEA0 /* FBSDKShareKit.framework */,
 				2488E7B21C8D481A00B50581 /* Css */,
 				C7A85F331C78C137007E9A00 /* AppDelegate.swift */,
 				C7A85F3A1C78C137007E9A00 /* Assets.xcassets */,
@@ -262,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2404878C1CA281A00051DE01 /* LoginViewController.swift in Sources */,
 				24473E581CA221A3000B0AF9 /* PreferenceViewController.swift in Sources */,
 				247CFF7E1C8D11C8001596DB /* ArticleContentViewController.swift in Sources */,
 				2477D1A01C8D0A1100A4D6BF /* Extension.swift in Sources */,
@@ -380,6 +396,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/reader",
+				);
 				INFOPLIST_FILE = reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -396,6 +416,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/reader",
+				);
 				INFOPLIST_FILE = reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
