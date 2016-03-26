@@ -31,8 +31,8 @@ class LoginManager {
             cognitoId = ""
         }
         
-        if let token = FBSDKAccessToken.currentAccessToken().tokenString {
-            credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
+        if let token = FBSDKAccessToken.currentAccessToken() {
+            credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
             print("Facebook already logged in")
             credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
                 if (task.error != nil) {
