@@ -37,9 +37,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         
         setupSubviews()
         
-        if let _ = FBSDKAccessToken.currentAccessToken() {
-            fetchProfile()
-        }
+//        if let _ = FBSDKAccessToken.currentAccessToken() {
+//            fetchProfile()
+//        }
     }
     
     func setupSubviews() {
@@ -57,68 +57,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         loginButton.delegate = self
     }
     
-    func showFriends() {
-        let parameters = ["fields": "name,picture.type(normal),gender"]
-        FBSDKGraphRequest(graphPath: "me/taggable_friends", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
-            if requestError != nil {
-                print(requestError)
-                return
-            }
-            
-            var friends = [Friend]()
-            for friendDictionary in user["data"] as! [NSDictionary] {
-                let name = friendDictionary["name"] as? String
-                if let picture = friendDictionary["picture"]?["data"]?!["url"] as? String {
-                    let friend = Friend(name: name, picture: picture)
-                    friends.append(friend)
-                }
-            }
-            
-            self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        })
-    }
-    
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
-        fetchProfile()
-    }
-    
-    func fetchProfile() {
-        let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
-        FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
-            
-            if requestError != nil {
-                print(requestError)
-                return
-            }
-            
-            var _ = user["email"] as? String
-            let firstName = user["first_name"] as? String
-            let lastName = user["last_name"] as? String
-            
-            self.nameLabel.text = "\(firstName!) \(lastName!)"
-            
-            var pictureUrl = ""
-            
-            if let picture = user["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary, url = data["url"] as? String {
-                pictureUrl = url
-            }
-            
-            let url = NSURL(string: pictureUrl)
-            NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-                if error != nil {
-                    print(error)
-                    return
-                }
-                
-                let image = UIImage(data: data!)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.userImageView.image = image
-                })
-                
-            }).resume()
-            
-        })
+        LoginManager.sharedInstance.fetchProfile()
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {

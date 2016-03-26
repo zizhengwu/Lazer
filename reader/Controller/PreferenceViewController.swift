@@ -104,11 +104,31 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                     make.right.equalTo(v).offset(-15)
                 }
                 
-                self.userNameLabel!.text = "Zizheng Wu"
-                self.introduceLabel!.text = "me@zizhengwu.com"
+                // userName, userEmail, and userAvatar here
+                self.drawProfile()
             }
         }
         return v
+    }
+    
+    func drawProfile() {
+        if let userName = LoginManager.sharedInstance.userName {
+            self.userNameLabel!.text = userName
+        }
+        else {
+            self.userNameLabel!.text = "Unregistered"
+        }
+        
+        if let userEmail = LoginManager.sharedInstance.userEmail {
+            self.introduceLabel!.text = userEmail
+        }
+        else {
+            self.introduceLabel!.text = "Click the avatar to login"
+        }
+        
+        if let userAvatar = LoginManager.sharedInstance.userImage {
+            self.avatarImageView?.image = userAvatar
+        }
     }
     
     func clickOnAvatar() {

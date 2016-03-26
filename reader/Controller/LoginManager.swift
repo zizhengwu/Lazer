@@ -70,11 +70,11 @@ class LoginManager {
                 return
             }
             
-            var _ = user["email"] as String!
             let firstName = user["first_name"] as String!
             let lastName = user["last_name"] as String!
             
             self.userName = "\(firstName!) \(lastName!)"
+            self.userEmail = user["email"] as String!
             
             let userDict = user as? NSDictionary?
             let pictureUrl = userDict!!["picture"]!["data"]!["url"]! as String!
