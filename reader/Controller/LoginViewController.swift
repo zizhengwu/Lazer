@@ -63,7 +63,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        
+        LoginManager.sharedInstance.clearProfile()
     }
     
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {

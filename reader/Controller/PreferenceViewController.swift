@@ -103,12 +103,13 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                     make.left.equalTo(v).offset(15)
                     make.right.equalTo(v).offset(-15)
                 }
-                
-                // userName, userEmail, and userAvatar here
-                self.drawProfile()
             }
         }
         return v
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.drawProfile()
     }
     
     func drawProfile() {
@@ -128,6 +129,9 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         
         if let userAvatar = LoginManager.sharedInstance.userImage {
             self.avatarImageView?.image = userAvatar
+        }
+        else {
+            self.avatarImageView?.image = nil
         }
     }
     

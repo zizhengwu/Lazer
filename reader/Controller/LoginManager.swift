@@ -16,22 +16,26 @@ class LoginManager {
     var userEmail: String?
     var syncClient: AWSCognito?
     var dataset: AWSCognitoDataset?
+    var credentialsProvider: AWSCognitoCredentialsProvider?
     
     init() {
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
+        self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-        
+        self.facebookLogin()
+    }
+    
+    func facebookLogin() {
         if let token = FBSDKAccessToken.currentAccessToken() {
-            credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
+            self.credentialsProvider!.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
             print("Facebook already logged in")
-            credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
+            self.credentialsProvider!.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
                 if (task.error != nil) {
                     print("Error: " + task.error!.localizedDescription)
                 } else {
                     // the task result will contain the identity id
                     let _ = task.result
-                    print(credentialsProvider.getIdentityId())
+                    print(self.credentialsProvider!.getIdentityId())
                     self.loggedIn = true
                     self.sync()
                     self.fetchProfile()
@@ -40,8 +44,16 @@ class LoginManager {
             }
         }
         else {
+            self.clearProfile()
             print("Facebook not logged in")
         }
+    }
+    
+    func clearProfile() {
+        self.loggedIn = false
+        self.userImage = nil
+        self.userEmail = nil
+        self.userName = nil
     }
     
     func sync() {
