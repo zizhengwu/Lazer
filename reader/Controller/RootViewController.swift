@@ -30,15 +30,24 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         collectionView?.addSubview(refreshControl)
         
-        let btnName = UIButton()
-        btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
-        btnName.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
+        let settingsButton = UIButton()
+        settingsButton.frame = CGRectMake(0, 0, 30, 30)
+        settingsButton.setImage(UIImage(named: "Settings"), forState: .Normal)
+        settingsButton.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
+        
+        let timerButton = UIButton()
+        timerButton.frame = CGRectMake(0, 0, 25, 25)
+        timerButton.setImage(UIImage(named: "Timer"), forState: .Normal)
+        timerButton.addTarget(self, action: #selector(RootViewController.timerClicked(_:)), forControlEvents: .TouchUpInside)
         
         //.... Set Right/Left Bar Button item
         let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = btnName
+        leftBarButton.customView = settingsButton
         self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        let rightBarButton = UIBarButtonItem()
+        rightBarButton.customView = timerButton
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func refresh(sender:AnyObject)
@@ -69,6 +78,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             }
         }
 
+    }
+    
+    func timerClicked(sender: UIButton!) {
+        print("timer")
     }
     
     func settingsClicked(sender: UIButton!) {
