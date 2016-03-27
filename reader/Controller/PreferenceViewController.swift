@@ -6,7 +6,6 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     var collectionView: UICollectionView!
     let flowLayout = UICollectionViewFlowLayout()
     let tagCellCellId = "tagCellCellId"
-    let names =  ["hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology hello world hello world" ,"hello" ,"hello world"]
     
     var avatarImageView: UIImageView?
     var userNameLabel: UILabel?
@@ -15,19 +14,14 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        for name in names {
-            let tag = Tag()
-            tag.name = name
-            LoginManager.sharedInstance.tags.append(tag)
-        }
         
         setupViews()
         
-        LoginManager.sharedInstance.initialzeTags()
+        LoginManager.sharedInstance.reloadTags()
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 14
+        return LoginManager.sharedInstance.tagOptions.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -35,7 +29,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         let tag = LoginManager.sharedInstance.tags[indexPath.row]
         cell.name.textColor = tag.selected ? UIColor.whiteColor() : UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         cell.backgroundColor = tag.selected ? UIColor(red: 0, green: 1, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        cell.name.text = names[indexPath.item]
+        cell.name.text = LoginManager.sharedInstance.tagOptions[indexPath.item][0]
         return cell
     }
     
@@ -114,7 +108,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidAppear(animated: Bool) {
         self.drawProfile()
-        LoginManager.sharedInstance.initialzeTags()
+        LoginManager.sharedInstance.reloadTags()
         self.collectionView.reloadData()
     }
     
@@ -146,7 +140,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let rect = NSString(string: names[indexPath.item]).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
+        let rect = NSString(string: LoginManager.sharedInstance.tagOptions[indexPath.item][0]).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
         return CGSize(width: rect.width + 20, height: rect.height + 10)
     }
     

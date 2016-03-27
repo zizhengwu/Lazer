@@ -20,11 +20,14 @@ class LoginManager {
     var credentialsProvider: AWSCognitoCredentialsProvider?
     var tags = [Tag]()
     
+    let tagOptions = [["economist", "56dc5cf41c9f585b22d26190"], ["technology", "56dba1f14f2b69c417409f68"]]
+
     init() {
         self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         self.facebookLogin()
+        self.initializeTags()
     }
     
     func facebookLogin() {
@@ -60,7 +63,16 @@ class LoginManager {
         self.userName = nil
     }
     
-    func initialzeTags() {
+    func initializeTags() {
+        for tagOption in self.tagOptions {
+            let tag = Tag()
+            tag.name = tagOption[0]
+            tag.url = tagOption[1]
+            self.tags.append(tag)
+        }
+    }
+    
+    func reloadTags() {
         var tagsSelectedJson: JSON
         if self.dataset != nil {
             if let tagsSelectedString = self.dataset!.stringForKey("tags") {

@@ -36,10 +36,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         navigationItem.title = "Facebook Login"
         
         setupSubviews()
-        
-//        if let _ = FBSDKAccessToken.currentAccessToken() {
-//            fetchProfile()
-//        }
     }
     
     func setupSubviews() {
