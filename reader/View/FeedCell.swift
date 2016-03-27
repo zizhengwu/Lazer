@@ -8,13 +8,13 @@ class FeedCell: UICollectionViewCell {
             
             profileImageView.image = nil
             
-            loader.startAnimating()
+//            loader.startAnimating()
             
             if let name = post?.creator {
                 
                 let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(14)])
                 
-                attributedText.appendAttributedString(NSAttributedString(string: "\nDecember 18  •  San Francisco ", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName:
+                attributedText.appendAttributedString(NSAttributedString(string: "\n5 mins ", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName:
                     UIColor.rgb(155, green: 161, blue: 161)]))
                 
                 let paragraphStyle = NSMutableParagraphStyle()
@@ -30,8 +30,22 @@ class FeedCell: UICollectionViewCell {
                 statusTextView.text = statusText
             }
             
-            if let profileImagename = post?.creatorAvatar {
-                profileImageView.image = nil
+            if let profileImageUrl = post?.creatorAvatar {
+                NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: profileImageUrl)!, completionHandler: { (data, response, error) -> Void in
+                    
+                    if error != nil {
+                        print(error)
+                        return
+                    }
+                    
+                    let image = UIImage(data: data!)
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.profileImageView.image = image
+                    })
+                    
+                    
+                }).resume()
             }
             
             if let titleText = post?.title {
@@ -50,12 +64,10 @@ class FeedCell: UICollectionViewCell {
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.statusImageView.image = image
-                        self.loader.stopAnimating()
                     })
                     
                     
                 }).resume()
-                statusImageView.image = nil
             }
             
         }
