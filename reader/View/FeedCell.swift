@@ -3,10 +3,10 @@ import Foundation
 
 class FeedCell: UICollectionViewCell {
     
-    var post: Post? {
+    var post: RssItem? {
         didSet {
             
-            if let name = post?.name {
+            if let name = post?.creator {
                 
                 let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(14)])
                 
@@ -22,16 +22,16 @@ class FeedCell: UICollectionViewCell {
                 
             }
             
-            if let statusText = post?.statusText {
+            if let statusText = post?.content {
                 statusTextView.text = statusText
             }
             
-            if let profileImagename = post?.profileImageName {
-                profileImageView.image = UIImage(named: profileImagename)
+            if let profileImagename = post?.creatorAvatar {
+                profileImageView.image = nil
             }
             
-            if let statusImageName = post?.statusImageName {
-                statusImageView.image = UIImage(named: statusImageName)
+            if let statusImageName = post?.imageHeading {
+                statusImageView.image = nil
             }
             
         }
