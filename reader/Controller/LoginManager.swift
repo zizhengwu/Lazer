@@ -37,6 +37,8 @@ class LoginManager {
                     let _ = task.result
                     print(self.credentialsProvider!.getIdentityId())
                     self.loggedIn = true
+                    self.syncClient = AWSCognito.defaultCognito()
+                    self.dataset = self.syncClient!.openOrCreateDataset("preference")
                     self.sync()
                     self.fetchProfile()
                 }
@@ -57,9 +59,6 @@ class LoginManager {
     }
     
     func sync() {
-        self.syncClient = AWSCognito.defaultCognito()
-        self.dataset = self.syncClient!.openOrCreateDataset("preference")
-        
         self.dataset!.synchronize().continueWithBlock {(task) -> AnyObject! in
             
             if task.error != nil {
