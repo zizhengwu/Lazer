@@ -7,7 +7,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     let flowLayout = UICollectionViewFlowLayout()
     let tagCellCellId = "tagCellCellId"
     let names =  ["hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology" ,"hello" ,"hello world" ,"technology hello world hello world" ,"hello" ,"hello world"]
-    var tags = [Tag]()
+    
     var avatarImageView: UIImageView?
     var userNameLabel: UILabel?
     var introduceLabel: UILabel?
@@ -18,44 +18,12 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         for name in names {
             let tag = Tag()
             tag.name = name
-            self.tags.append(tag)
+            LoginManager.sharedInstance.tags.append(tag)
         }
         
         setupViews()
         
-        initialzeTags()
-    }
-    
-    func initialzeTags() {
-        var tagsSelectedJson: JSON
-        if LoginManager.sharedInstance.dataset != nil {
-            if let tagsSelectedString = LoginManager.sharedInstance.dataset!.stringForKey("tags") {
-                tagsSelectedJson = JSON.parse(tagsSelectedString)
-            }
-            else {
-                tagsSelectedJson = JSON.parse("")
-            }
-        }
-        else {
-            tagsSelectedJson = JSON.parse("")
-        }
-        
-        var selectedTags = [String]()
-        
-        for (key, value):(String, JSON) in tagsSelectedJson {
-            selectedTags.append(key)
-        }
-        
-        for tag in self.tags {
-            if selectedTags.contains(tag.name!) {
-                tag.selected = true
-            }
-            else {
-                tag.selected = false
-            }
-        }
-        
-        self.collectionView.reloadData()
+        LoginManager.sharedInstance.initialzeTags()
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -64,7 +32,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(tagCellCellId, forIndexPath: indexPath) as! TagCell
-        let tag = tags[indexPath.row]
+        let tag = LoginManager.sharedInstance.tags[indexPath.row]
         cell.name.textColor = tag.selected ? UIColor.whiteColor() : UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         cell.backgroundColor = tag.selected ? UIColor(red: 0, green: 1, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         cell.name.text = names[indexPath.item]
@@ -146,7 +114,8 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidAppear(animated: Bool) {
         self.drawProfile()
-        self.initialzeTags()
+        LoginManager.sharedInstance.initialzeTags()
+        self.collectionView.reloadData()
     }
     
     func drawProfile() {
@@ -183,10 +152,10 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.deselectItemAtIndexPath(indexPath, animated: false)
-        tags[indexPath.row].selected = !tags[indexPath.row].selected
+        LoginManager.sharedInstance.tags[indexPath.row].selected = !LoginManager.sharedInstance.tags[indexPath.row].selected
         
         var tagsSelectedJson: JSON = [:]
-        for tag in self.tags {
+        for tag in LoginManager.sharedInstance.tags {
             if tag.selected {
                 tagsSelectedJson[tag.name!] = "true"
             }

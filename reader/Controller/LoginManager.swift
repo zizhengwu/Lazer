@@ -4,6 +4,7 @@ import AWSCognito
 import FBSDKCoreKit
 import FBSDKShareKit
 import FBSDKLoginKit
+import SwiftyJSON
 
 class LoginManager {
     
@@ -17,6 +18,7 @@ class LoginManager {
     var syncClient: AWSCognito?
     var dataset: AWSCognitoDataset?
     var credentialsProvider: AWSCognitoCredentialsProvider?
+    var tags = [Tag]()
     
     init() {
         self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
@@ -56,6 +58,36 @@ class LoginManager {
         self.userImage = nil
         self.userEmail = nil
         self.userName = nil
+    }
+    
+    func initialzeTags() {
+        var tagsSelectedJson: JSON
+        if self.dataset != nil {
+            if let tagsSelectedString = self.dataset!.stringForKey("tags") {
+                tagsSelectedJson = JSON.parse(tagsSelectedString)
+            }
+            else {
+                tagsSelectedJson = JSON.parse("")
+            }
+        }
+        else {
+            tagsSelectedJson = JSON.parse("")
+        }
+        
+        var selectedTags = [String]()
+        
+        for (key, value):(String, JSON) in tagsSelectedJson {
+            selectedTags.append(key)
+        }
+        
+        for tag in self.tags {
+            if selectedTags.contains(tag.name!) {
+                tag.selected = true
+            }
+            else {
+                tag.selected = false
+            }
+        }
     }
     
     func sync() {

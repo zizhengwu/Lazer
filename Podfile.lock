@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (3.3.0)
   - AWSCognito (2.3.6):
     - AWSCore (= 2.3.6)
   - AWSCore (2.3.6)
@@ -14,16 +15,19 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.10.1):
     - FBSDKCoreKit
+  - Observable-Swift (0.6.0)
   - SnapKit (0.19.1)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
+  - Alamofire
   - AWSCognito
   - AWSCore
   - Bolts
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - Observable-Swift
   - SnapKit
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -37,12 +41,14 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
+  Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
   AWSCognito: af54fe65171c7c994c134e5d29b1ee60ee234825
   AWSCore: 917d84b32974136194a905b98c0ae25c9f3350b8
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
   FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
   FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
+  Observable-Swift: c63b9fc990703b135450cb5bd3541022384867ae
   SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
