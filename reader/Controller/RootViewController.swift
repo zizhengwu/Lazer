@@ -78,7 +78,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let rssItem = RssItem(title: "Dark Souls 3 Starting Class Concept Art Revealed", creator: "Chloi Rad", pubDate: NSDate(), link: "http://www.ign.com/articles/2016/03/01/dark-souls-3-starting-classes-concept-art-revealed", description: "", content: posts[indexPath.row].content, imageHeading: "", creatorAvatar: "")
+        let rssItem = RssItem(title: posts[indexPath.row].title, creator: posts[indexPath.row].creator, pubDate: NSDate(), link: posts[indexPath.row].link, description: "", content: posts[indexPath.row].content, imageHeading: posts[indexPath.row].imageHeading, creatorAvatar: posts[indexPath.row].creatorAvatar)
         let articleContentViewController = ArticleContentViewController(rssItem: rssItem)
         navigationController?.pushViewController(articleContentViewController, animated: true)
     }

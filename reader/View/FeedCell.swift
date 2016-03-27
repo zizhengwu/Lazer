@@ -6,6 +6,10 @@ class FeedCell: UICollectionViewCell {
     var post: RssItem? {
         didSet {
             
+            profileImageView.image = nil
+            
+            loader.startAnimating()
+            
             if let name = post?.creator {
                 
                 let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(14)])
@@ -30,7 +34,27 @@ class FeedCell: UICollectionViewCell {
                 profileImageView.image = nil
             }
             
-            if let statusImageName = post?.imageHeading {
+            if let titleText = post?.title {
+                titleTextView.text = titleText
+            }
+            
+            if let statusImageUrl = post?.imageHeading {
+                NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: statusImageUrl)!, completionHandler: { (data, response, error) -> Void in
+                    
+                    if error != nil {
+                        print(error)
+                        return
+                    }
+                    
+                    let image = UIImage(data: data!)
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.statusImageView.image = image
+                        self.loader.stopAnimating()
+                    })
+                    
+                    
+                }).resume()
                 statusImageView.image = nil
             }
             
@@ -58,7 +82,6 @@ class FeedCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "zuckprofile")
         imageView.contentMode = .ScaleAspectFit
         return imageView
     }()
@@ -75,7 +98,6 @@ class FeedCell: UICollectionViewCell {
     
     let titleTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Beast turned to the dark side"
         textView.font = UIFont.systemFontOfSize(26)
         textView.scrollEnabled = false
         textView.userInteractionEnabled = false
@@ -87,7 +109,6 @@ class FeedCell: UICollectionViewCell {
     
     let statusImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "zuckdog")
         imageView.contentMode = .ScaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
@@ -121,4 +142,5 @@ class FeedCell: UICollectionViewCell {
         
     }
     
+    let loader = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
 }
