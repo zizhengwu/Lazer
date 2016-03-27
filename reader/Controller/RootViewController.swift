@@ -9,13 +9,14 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     var posts = [RssItem]()
     var settingsView = PreferenceViewController()
-    
-    override func viewDidAppear(animated: Bool) {
-        retrieveArticles()
-    }
+    var refreshControl: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
@@ -27,6 +28,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
         
+        collectionView?.addSubview(refreshControl)
+        
         let btnName = UIButton()
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.setImage(UIImage(named: "Settings"), forState: .Normal)
@@ -36,6 +39,13 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = btnName
         self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        LoginManager.sharedInstance.reloadTags()
+        retrieveArticles()
+        refreshControl.endRefreshing()
     }
     
     func retrieveArticles() {
