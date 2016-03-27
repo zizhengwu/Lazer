@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import SwiftyJSON
 
 class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var collectionView: UICollectionView!
@@ -19,7 +20,42 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
             tag.name = name
             self.tags.append(tag)
         }
+        
         setupViews()
+        
+        initialzeTags()
+    }
+    
+    func initialzeTags() {
+        var tagsSelectedJson: JSON
+        if LoginManager.sharedInstance.dataset != nil {
+            if let tagsSelectedString = LoginManager.sharedInstance.dataset!.stringForKey("tags") {
+                tagsSelectedJson = JSON.parse(tagsSelectedString)
+            }
+            else {
+                tagsSelectedJson = JSON.parse("")
+            }
+        }
+        else {
+            tagsSelectedJson = JSON.parse("")
+        }
+        
+        var selectedTags = [String]()
+        
+        for (key, value):(String, JSON) in tagsSelectedJson {
+            selectedTags.append(key)
+        }
+        
+        for tag in self.tags {
+            if selectedTags.contains(tag.name!) {
+                tag.selected = true
+            }
+            else {
+                tag.selected = false
+            }
+        }
+        
+        self.collectionView.reloadData()
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -110,6 +146,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidAppear(animated: Bool) {
         self.drawProfile()
+        self.initialzeTags()
     }
     
     func drawProfile() {
@@ -147,6 +184,16 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.deselectItemAtIndexPath(indexPath, animated: false)
         tags[indexPath.row].selected = !tags[indexPath.row].selected
+        
+        var tagsSelectedJson: JSON = [:]
+        for tag in self.tags {
+            if tag.selected {
+                tagsSelectedJson[tag.name!] = "true"
+            }
+        }
+        LoginManager.sharedInstance.dataset?.setString(tagsSelectedJson.rawString(), forKey: "tags")
+        LoginManager.sharedInstance.sync()
+        
         self.collectionView.reloadData()
     }
     

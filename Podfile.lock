@@ -15,6 +15,7 @@ PODS:
   - FBSDKShareKit (4.10.1):
     - FBSDKCoreKit
   - SnapKit (0.19.1)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - AWSCognito
@@ -24,6 +25,16 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - FBSDKShareKit
   - SnapKit
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  SwiftyJSON:
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
   AWSCognito: af54fe65171c7c994c134e5d29b1ee60ee234825
@@ -33,5 +44,6 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
   FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
   SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0
