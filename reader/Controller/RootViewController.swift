@@ -51,14 +51,14 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             Alamofire.request(.POST, "http://chi01.xuleijr.com/api/subscriptions/7c96422964215320482", parameters: ["channels": url])
                 .responseString { response in
                     let json = JSON.parse(response.result.value! as String)["items"]
-                    for (key, item):(String, JSON) in json {
+                    for (_, item):(String, JSON) in json {
                         let post = RssItem(title: item["title"].string!, creator: "creator", pubDate: NSDate(), link: item["link"].string!, description: item["content"].string!, content: item["content"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
                         self.posts.append(post)
-                    }                    
+                        self.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: self.posts.count - 1, inSection: 0)])
+                    }
             }
         }
 
-        collectionView?.reloadData()
     }
     
     func settingsClicked(sender: UIButton!) {

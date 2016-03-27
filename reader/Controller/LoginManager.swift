@@ -88,7 +88,7 @@ class LoginManager {
         
         var selectedTags = [String]()
         
-        for (key, value):(String, JSON) in tagsSelectedJson {
+        for (key, _):(String, JSON) in tagsSelectedJson {
             selectedTags.append(key)
         }
         
