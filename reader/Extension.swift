@@ -22,3 +22,16 @@ extension UIView {
     }
     
 }
+
+extension UINavigationController {
+    
+    func pushViewController(viewController: UIViewController,
+                            animated: Bool, completion: Void -> Void) {
+        
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        pushViewController(viewController, animated: animated)
+        CATransaction.commit()
+    }
+    
+}
