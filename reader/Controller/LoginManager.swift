@@ -118,7 +118,7 @@ class LoginManager {
                 return nil
             }
         }
-        else{
+        else {
             print("trying to sync but nil dataset")
         }
     }

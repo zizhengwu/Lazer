@@ -10,7 +10,9 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     var posts = [RssItem]()
     var settingsView = PreferenceViewController()
     var refreshControl: UIRefreshControl!
-
+    
+    var overlay : UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,7 +83,43 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func timerClicked(sender: UIButton!) {
-        print("timer")
+        addTimeoutOverlay()
+    }
+    
+    func addTimeoutOverlay() {
+        if let _ = overlay {
+            overlay?.removeFromSuperview()
+            overlay = nil
+        }
+        else {
+            overlay = UIView(frame: view.frame)
+            overlay!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            overlay!.backgroundColor = UIColor.blackColor()
+            overlay!.alpha = 0.8
+            
+            let quoteTextView: UITextView = {
+                let textView = UITextView()
+                let randomIndex = Int(arc4random_uniform(UInt32(Constant.QUOTES.count)))
+                
+                textView.text = Constant.QUOTES[randomIndex].keys.first! + "\n\n—" + Constant.QUOTES[randomIndex].values.first!
+                textView.backgroundColor = UIColor.clearColor()
+                textView.textColor = UIColor.whiteColor()
+                textView.font = UIFont.systemFontOfSize(20)
+                textView.scrollEnabled = false
+                textView.userInteractionEnabled = false
+                
+                return textView
+            }()
+            
+            overlay?.addSubview(quoteTextView)
+            quoteTextView.snp_makeConstraints{ (make) -> Void in
+                make.centerY.equalTo(overlay!)
+                make.centerX.equalTo(overlay!)
+                make.left.equalTo(overlay!)
+                make.right.equalTo(overlay!)
+            }
+            view.addSubview(overlay!)
+        }
     }
     
     func settingsClicked(sender: UIButton!) {
