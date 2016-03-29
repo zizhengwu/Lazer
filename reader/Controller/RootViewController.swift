@@ -83,7 +83,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func timerClicked(sender: UIButton!) {
-        addTimeoutOverlay()
+        var timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
     }
     
     func addTimeoutOverlay() {
