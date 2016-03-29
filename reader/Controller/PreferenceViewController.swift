@@ -21,7 +21,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return LoginManager.sharedInstance.tagOptions.count
+        return Constant.TAGOPTIONS.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -29,7 +29,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         let tag = LoginManager.sharedInstance.tags[indexPath.row]
         cell.name.textColor = tag.selected ? UIColor.whiteColor() : UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
         cell.backgroundColor = tag.selected ? UIColor(red: 0, green: 1, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        cell.name.text = LoginManager.sharedInstance.tagOptions[indexPath.item][0]
+        cell.name.text = Constant.TAGOPTIONS[indexPath.item][0]
         return cell
     }
     
@@ -140,7 +140,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let rect = NSString(string: LoginManager.sharedInstance.tagOptions[indexPath.item][0]).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
+        let rect = NSString(string: Constant.TAGOPTIONS[indexPath.item][0]).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
         return CGSize(width: rect.width + 20, height: rect.height + 10)
     }
     
