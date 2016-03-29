@@ -33,7 +33,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.addSubview(refreshControl)
         
         let settingsButton = UIButton()
-        settingsButton.frame = CGRectMake(0, 0, 30, 30)
+        settingsButton.frame = CGRectMake(0, 0, 25, 25)
         settingsButton.setImage(UIImage(named: "Settings"), forState: .Normal)
         settingsButton.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
         
