@@ -28,6 +28,8 @@ class LoginManager {
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         self.facebookLogin()
         self.initializeTags()
+        self.syncClient = AWSCognito.defaultCognito()
+        self.dataset = self.syncClient!.openOrCreateDataset("preference")
     }
     
     func facebookLogin() {
@@ -103,16 +105,21 @@ class LoginManager {
     }
     
     func sync() {
-        self.dataset!.synchronize().continueWithBlock {(task) -> AnyObject! in
-            
-            if task.error != nil {
-                // Error while executing task
+        if self.dataset != nil {
+            self.dataset!.synchronize().continueWithBlock {(task) -> AnyObject! in
                 
-            } else {
-                // Task succeeded. The data was saved in the sync store.
-                
+                if task.error != nil {
+                    // Error while executing task
+                    
+                } else {
+                    // Task succeeded. The data was saved in the sync store.
+                    
+                }
+                return nil
             }
-            return nil
+        }
+        else{
+            print("trying to sync but nil dataset")
         }
     }
     

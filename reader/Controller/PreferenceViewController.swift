@@ -62,8 +62,8 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                 
                 self.avatarImageView = UIImageView()
                 self.avatarImageView!.backgroundColor = UIColor(white: 0.9, alpha: 0.3)
-                self.avatarImageView!.layer.borderWidth = 1.5
-                self.avatarImageView!.layer.borderColor = UIColor(white: 1, alpha: 0.6).CGColor
+//                self.avatarImageView!.layer.borderWidth = 1.5
+//                self.avatarImageView!.layer.borderColor = UIColor(white: 1, alpha: 0.6).CGColor
                 self.avatarImageView!.layer.masksToBounds = true
                 self.avatarImageView!.layer.cornerRadius = 38
                 let singleTap = UITapGestureRecognizer(target: self, action: #selector(PreferenceViewController.clickOnAvatar))
