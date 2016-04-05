@@ -92,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/FBSDKLoginKit.framework"
   install_framework "Pods/FBSDKShareKit.framework"
   install_framework "Pods/Observable.framework"
+  install_framework "Pods/Popover.framework"
   install_framework "Pods/SnapKit.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi
@@ -104,6 +105,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/FBSDKLoginKit.framework"
   install_framework "Pods/FBSDKShareKit.framework"
   install_framework "Pods/Observable.framework"
+  install_framework "Pods/Popover.framework"
   install_framework "Pods/SnapKit.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi
