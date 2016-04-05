@@ -19,8 +19,6 @@ class LoginManager {
     var dataset: AWSCognitoDataset?
     var credentialsProvider: AWSCognitoCredentialsProvider?
     var tags = [Tag]()
-    
-    
 
     init() {
         self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
