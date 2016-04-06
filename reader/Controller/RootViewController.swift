@@ -62,7 +62,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func refresh(sender:AnyObject)
     {
-        UserProfileController.sharedInstance.reloadTags()
         retrieveArticles()
         refreshControl.endRefreshing()
     }
@@ -87,7 +86,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
                     }
             }
         }
-
     }
     
     func timerClicked(sender: UIButton!) {
