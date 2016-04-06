@@ -61,6 +61,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         LoginManager.sharedInstance.facebookLogin()
         LoginManager.sharedInstance.sync()
         LoginManager.sharedInstance.fetchProfile()
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
