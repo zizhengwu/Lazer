@@ -62,6 +62,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func refresh(sender:AnyObject)
     {
+        self.posts = [RssItem]()
+        collectionView?.reloadData()
         retrieveArticles()
         refreshControl.endRefreshing()
     }
