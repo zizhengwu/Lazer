@@ -64,7 +64,7 @@ class LoginManager {
     }
     
     func initializeTags() {
-        for tagOption in Constant.TAGOPTIONS {
+        for tagOption in Constant.TAG_OPTIONS {
             let tag = Tag()
             tag.name = tagOption[0]
             tag.url = tagOption[1]
