@@ -103,7 +103,7 @@ class LoginManager {
     }
     
     func sync() {
-        if self.dataset != nil {
+        if self.dataset != nil && self.loggedIn! {
             self.dataset!.synchronize().continueWithBlock {(task) -> AnyObject! in
                 
                 if task.error != nil {
@@ -115,6 +115,9 @@ class LoginManager {
                 }
                 return nil
             }
+        }
+        else if !self.loggedIn! {
+            print("shouldn't sync since logged out")
         }
         else {
             print("trying to sync but nil dataset")
