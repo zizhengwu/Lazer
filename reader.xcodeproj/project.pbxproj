@@ -198,6 +198,7 @@
 				TargetAttributes = {
 					C7A85F2F1C78C137007E9A00 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = XZ76KL76M5;
 					};
 				};
 			};
@@ -414,7 +415,7 @@
 				INFOPLIST_FILE = reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.reader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.lazer;
 				PRODUCT_NAME = reader;
 				PROVISIONING_PROFILE = "";
 			};
@@ -434,7 +435,7 @@
 				INFOPLIST_FILE = reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.reader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.lazer;
 				PRODUCT_NAME = reader;
 				PROVISIONING_PROFILE = "";
 			};

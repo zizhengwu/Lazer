@@ -98,7 +98,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         tableView.separatorStyle = .None
         let popoverOptions: [PopoverOption] = [
             .Type(.Down),
-            .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+            .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6)),
+            .ArrowSize(CGSizeZero),
         ]
         self.popover = Popover(options: popoverOptions, showHandler: nil, dismissHandler: nil)
         self.popover.show(tableView, fromView: self.timerButton)
