@@ -132,6 +132,13 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             overlay?.addSubview(quoteTextView)
             view.addSubview(overlay!)
             
+            overlay!.snp_makeConstraints{ (make) -> Void in
+                make.top.equalTo(view)
+                make.bottom.equalTo(view)
+                make.left.equalTo(view)
+                make.right.equalTo(view)
+            }
+            
             quoteTextView.snp_makeConstraints{ (make) -> Void in
                 make.centerY.equalTo(overlay!)
                 make.centerX.equalTo(overlay!)

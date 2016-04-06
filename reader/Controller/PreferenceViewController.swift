@@ -28,7 +28,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(tagCellCellId, forIndexPath: indexPath) as! TagCell
         let tag = UserProfileController.sharedInstance.tags[indexPath.row]
         cell.name.textColor = tag.selected ? UIColor.whiteColor() : UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
-        cell.backgroundColor = tag.selected ? UIColor(red: 0, green: 1, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+        cell.backgroundColor = tag.selected ? UIColor(red: 1, green: 0, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         cell.name.text = Constant.TAG_OPTIONS[indexPath.item][0]
         return cell
     }
