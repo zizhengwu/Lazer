@@ -62,14 +62,14 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func refresh(sender:AnyObject)
     {
-        LoginManager.sharedInstance.reloadTags()
+        UserProfileController.sharedInstance.reloadTags()
         retrieveArticles()
         refreshControl.endRefreshing()
     }
     
     func retrieveArticles() {
         var urlsToBeRetrieved = [String]()
-        for tag in LoginManager.sharedInstance.tags {
+        for tag in UserProfileController.sharedInstance.tags {
             if tag.selected == true {
                 urlsToBeRetrieved.append(tag.url!)
             }

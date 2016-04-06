@@ -18,14 +18,14 @@ class LoginManager {
     var syncClient: AWSCognito?
     var dataset: AWSCognitoDataset?
     var credentialsProvider: AWSCognitoCredentialsProvider?
-    var tags = [Tag]()
+    
 
     init() {
         self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         self.facebookLogin()
-        self.initializeTags()
+        UserProfileController.sharedInstance.initializeTags()
         self.syncClient = AWSCognito.defaultCognito()
         self.dataset = self.syncClient!.openOrCreateDataset("preference")
     }
@@ -61,45 +61,6 @@ class LoginManager {
         self.userImage = nil
         self.userEmail = nil
         self.userName = nil
-    }
-    
-    func initializeTags() {
-        for tagOption in Constant.TAG_OPTIONS {
-            let tag = Tag()
-            tag.name = tagOption[0]
-            tag.url = tagOption[1]
-            self.tags.append(tag)
-        }
-    }
-    
-    func reloadTags() {
-        var tagsSelectedJson: JSON
-        if self.dataset != nil {
-            if let tagsSelectedString = self.dataset!.stringForKey("tags") {
-                tagsSelectedJson = JSON.parse(tagsSelectedString)
-            }
-            else {
-                tagsSelectedJson = JSON.parse("")
-            }
-        }
-        else {
-            tagsSelectedJson = JSON.parse("")
-        }
-        
-        var selectedTags = [String]()
-        
-        for (key, _):(String, JSON) in tagsSelectedJson {
-            selectedTags.append(key)
-        }
-        
-        for tag in self.tags {
-            if selectedTags.contains(tag.name!) {
-                tag.selected = true
-            }
-            else {
-                tag.selected = false
-            }
-        }
     }
     
     func sync() {
