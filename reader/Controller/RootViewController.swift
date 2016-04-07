@@ -19,6 +19,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UserProfileController.sharedInstance.reloadTags()
+        
+        posts.append(RssItem(title: "Introducing Lazer", creator: "Team Super Monkey Bomb", pubDate: NSDate(), link: "https://zizhengwu.com/about", description: "description", content: "Introducing Lazer", imageHeading: "http://oyster.ignimgs.com/wordpress/stg.ign.com/2016/04/nkC6MH3.jpg", creatorAvatar: "http://www.clipartlord.com/wp-content/uploads/2016/01/gorilla6.png"))
+        
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(RootViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
@@ -175,7 +179,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let statusText = posts[indexPath.item].content
+        let statusText = posts[indexPath.item].description
             
         let rect = NSString(string: statusText).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
             
