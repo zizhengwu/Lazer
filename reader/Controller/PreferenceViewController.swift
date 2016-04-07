@@ -17,19 +17,19 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         
         setupViews()
         
-        LoginManager.sharedInstance.reloadTags()
+        UserProfileController.sharedInstance.reloadTags()
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return LoginManager.sharedInstance.tagOptions.count
+        return Constant.TAG_OPTIONS.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(tagCellCellId, forIndexPath: indexPath) as! TagCell
-        let tag = LoginManager.sharedInstance.tags[indexPath.row]
+        let tag = UserProfileController.sharedInstance.tags[indexPath.row]
         cell.name.textColor = tag.selected ? UIColor.whiteColor() : UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
-        cell.backgroundColor = tag.selected ? UIColor(red: 0, green: 1, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
-        cell.name.text = LoginManager.sharedInstance.tagOptions[indexPath.item][0]
+        cell.backgroundColor = tag.selected ? UIColor(red: 1, green: 0, blue: 0, alpha: 1) : UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+        cell.name.text = Constant.TAG_OPTIONS[indexPath.item][0]
         return cell
     }
     
@@ -62,8 +62,8 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                 
                 self.avatarImageView = UIImageView()
                 self.avatarImageView!.backgroundColor = UIColor(white: 0.9, alpha: 0.3)
-                self.avatarImageView!.layer.borderWidth = 1.5
-                self.avatarImageView!.layer.borderColor = UIColor(white: 1, alpha: 0.6).CGColor
+//                self.avatarImageView!.layer.borderWidth = 1.5
+//                self.avatarImageView!.layer.borderColor = UIColor(white: 1, alpha: 0.6).CGColor
                 self.avatarImageView!.layer.masksToBounds = true
                 self.avatarImageView!.layer.cornerRadius = 38
                 let singleTap = UITapGestureRecognizer(target: self, action: #selector(PreferenceViewController.clickOnAvatar))
@@ -108,7 +108,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     
     override func viewDidAppear(animated: Bool) {
         self.drawProfile()
-        LoginManager.sharedInstance.reloadTags()
+        UserProfileController.sharedInstance.reloadTags()
         self.collectionView.reloadData()
     }
     
@@ -140,16 +140,16 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let rect = NSString(string: LoginManager.sharedInstance.tagOptions[indexPath.item][0]).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
+        let rect = NSString(string: Constant.TAG_OPTIONS[indexPath.item][0]).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
         return CGSize(width: rect.width + 20, height: rect.height + 10)
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.deselectItemAtIndexPath(indexPath, animated: false)
-        LoginManager.sharedInstance.tags[indexPath.row].selected = !LoginManager.sharedInstance.tags[indexPath.row].selected
+        UserProfileController.sharedInstance.tags[indexPath.row].selected = !UserProfileController.sharedInstance.tags[indexPath.row].selected
         
         var tagsSelectedJson: JSON = [:]
-        for tag in LoginManager.sharedInstance.tags {
+        for tag in UserProfileController.sharedInstance.tags {
             if tag.selected {
                 tagsSelectedJson[tag.name!] = "true"
             }

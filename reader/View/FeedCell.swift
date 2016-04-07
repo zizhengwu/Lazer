@@ -1,5 +1,6 @@
 import UIKit
 import Foundation
+import SnapKit
 
 class FeedCell: UICollectionViewCell {
     
@@ -143,7 +144,10 @@ class FeedCell: UICollectionViewCell {
         
         addConstraintsWithFormat("H:|[v0]|", views: statusImageView)
         
-        addConstraintsWithFormat("H:|[v0]|", views: titleTextView)
+        titleTextView.snp_makeConstraints { (make) in
+            make.left.equalTo(contentView)
+            make.right.equalTo(contentView)
+        }
         
         // Vertical constrains
         addConstraintsWithFormat("V:|[v0(200)]-8-[v1(44)]-4-[v2]|", views: statusImageView, profileImageView, statusTextView)
