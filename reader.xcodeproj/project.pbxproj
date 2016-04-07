@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2404878C1CA281A00051DE01 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2404878B1CA281A00051DE01 /* LoginViewController.swift */; };
 		241587FE1CA7209800BCE3E0 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241587FD1CA7209800BCE3E0 /* Constant.swift */; };
 		241588001CA7228600BCE3E0 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241587FF1CA7228600BCE3E0 /* LoginManager.swift */; };
 		241B68ED1CA365DA006FFEA0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241B68EA1CA365DA006FFEA0 /* FBSDKCoreKit.framework */; };
@@ -32,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2404878B1CA281A00051DE01 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = reader/Controller/LoginViewController.swift; sourceTree = "<group>"; };
 		241587FD1CA7209800BCE3E0 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = reader/Model/Constant.swift; sourceTree = "<group>"; };
 		241587FF1CA7228600BCE3E0 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginManager.swift; path = reader/Controller/LoginManager.swift; sourceTree = "<group>"; };
 		241B68EA1CA365DA006FFEA0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				C7A85F351C78C137007E9A00 /* RootViewController.swift */,
 				247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */,
 				24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */,
-				2404878B1CA281A00051DE01 /* LoginViewController.swift */,
 				241587FF1CA7228600BCE3E0 /* LoginManager.swift */,
 				24F700671CB5AB690032D240 /* UserProfileController.swift */,
 			);
@@ -287,7 +284,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				241588001CA7228600BCE3E0 /* LoginManager.swift in Sources */,
-				2404878C1CA281A00051DE01 /* LoginViewController.swift in Sources */,
 				24473E581CA221A3000B0AF9 /* PreferenceViewController.swift in Sources */,
 				247CFF7E1C8D11C8001596DB /* ArticleContentViewController.swift in Sources */,
 				2477D1A01C8D0A1100A4D6BF /* Extension.swift in Sources */,

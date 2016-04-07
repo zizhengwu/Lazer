@@ -1,6 +1,9 @@
 import UIKit
 import SnapKit
 import SwiftyJSON
+import FBSDKCoreKit
+import FBSDKShareKit
+import FBSDKLoginKit
 
 class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var collectionView: UICollectionView!
@@ -136,19 +139,35 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
     
     func clickOnAvatar() {
-        let alert = UIAlertController(title: "Alert", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
-            switch action.style{
-            case .Default:
-                print("default")
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        if FBSDKAccessToken.currentAccessToken() == nil {
+            alert.title = "Login with ..."
+            alert.addAction(UIAlertAction(title: "Facebook", style: .Default, handler: { action in
+                FBSDKLoginManager().logInWithReadPermissions(["email"], fromViewController: self, handler: { (result, error) -> Void in
+                    if (error == nil) {
+                        if result.isCancelled {
+                            print("cancelled")
+                        }
+                        else if(result.grantedPermissions.contains("email"))
+                        {
+                            LoginManager.sharedInstance.facebookLogin()
+                            LoginManager.sharedInstance.sync()
+                            LoginManager.sharedInstance.fetchProfile()
+                        }
+                    }
+                })
                 
-            case .Cancel:
-                print("cancel")
-                
-            case .Destructive:
-                print("destructive")
-            }
-        }))
+            }))
+        }
+        else {
+            alert.title = "Logged in as " + LoginManager.sharedInstance.userName!
+            alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { action in
+                FBSDKLoginManager().logOut()
+                LoginManager.sharedInstance.clearProfile()
+            }))
+        }
+
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
