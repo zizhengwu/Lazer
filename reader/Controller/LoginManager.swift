@@ -6,21 +6,22 @@ import FBSDKShareKit
 import FBSDKLoginKit
 import SwiftyJSON
 
-class LoginManager {
+class LoginManager: NSObject {
     
     static let sharedInstance = LoginManager()
     
     var cognitoId: String?
     var loggedIn: Bool?
-    var userImage: UIImage?
-    var userName: String?
-    var userEmail: String?
+    dynamic var userImage: UIImage?
+    dynamic var userName: String?
+    dynamic var userEmail: String?
     var syncClient: AWSCognito?
     var dataset: AWSCognitoDataset?
     var credentialsProvider: AWSCognitoCredentialsProvider?
     
 
-    init() {
+    override init() {
+        super.init()
         self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration

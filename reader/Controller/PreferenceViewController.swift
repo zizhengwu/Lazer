@@ -4,6 +4,7 @@ import SwiftyJSON
 import FBSDKCoreKit
 import FBSDKShareKit
 import FBSDKLoginKit
+import KVOController
 
 class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     var collectionView: UICollectionView!
@@ -19,8 +20,6 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         // Do any additional setup after loading the view, typically from a nib.
         
         setupViews()
-        
-        UserProfileController.sharedInstance.reloadTags()
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -50,6 +49,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.whiteColor()
+        
         // if you don't do something about header size...
         // ...you won't see any headers
         self.flowLayout.headerReferenceSize = CGSizeMake(self.view.frame.width, 180)
@@ -104,38 +104,47 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                     make.left.equalTo(v).offset(15)
                     make.right.equalTo(v).offset(-15)
                 }
+                
+                self.drawProfile()
             }
         }
         return v
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.drawProfile()
         UserProfileController.sharedInstance.reloadTags()
         self.collectionView.reloadData()
     }
     
     func drawProfile() {
-        if let userName = LoginManager.sharedInstance.userName {
-            self.userNameLabel!.text = userName
-        }
-        else {
-            self.userNameLabel!.text = "Unregistered"
+        
+        self.KVOController.observe(LoginManager.sharedInstance, keyPath: "userName", options: [.Initial, .New]) { [weak self] _ in
+            if let userName = LoginManager.sharedInstance.userName {
+                self?.userNameLabel?.text = userName
+            }
+            else {
+                self?.userNameLabel?.text = "Unregistered"
+            }
         }
         
-        if let userEmail = LoginManager.sharedInstance.userEmail {
-            self.introduceLabel!.text = userEmail
-        }
-        else {
-            self.introduceLabel!.text = "Click the avatar to login"
+        self.KVOController.observe(LoginManager.sharedInstance, keyPath: "userEmail", options: [.Initial, .New]) { [weak self] _ in
+            if let userEmail = LoginManager.sharedInstance.userEmail {
+                self?.introduceLabel!.text = userEmail
+            }
+            else {
+                self?.introduceLabel!.text = "Click the avatar to login"
+            }
         }
         
-        if let userAvatar = LoginManager.sharedInstance.userImage {
-            self.avatarImageView?.image = userAvatar
+        self.KVOController.observe(LoginManager.sharedInstance, keyPath: "userImage", options: [.Initial, .New]) { [weak self] _ in
+            if let userAvatar = LoginManager.sharedInstance.userImage {
+                self?.avatarImageView?.image = userAvatar
+            }
+            else {
+                self?.avatarImageView?.image = nil
+            }
         }
-        else {
-            self.avatarImageView?.image = nil
-        }
+
     }
     
     func clickOnAvatar() {
