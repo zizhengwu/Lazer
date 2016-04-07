@@ -2,6 +2,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Popover
+import MJRefresh
 
 let cellId = "feedCell"
 
@@ -10,9 +11,14 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     var posts = [RssItem]()
     var settingsView = PreferenceViewController()
-    var refreshControl: UIRefreshControl!
     var timerButton: UIButton!
     private var popover: Popover!
+    let header: MJRefreshNormalHeader = {
+        let header = MJRefreshNormalHeader()
+        header.lastUpdatedTimeLabel.hidden = true
+        header.stateLabel.hidden = true
+        return header
+    }()
     
     var overlay : UIView?
     
@@ -23,10 +29,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         posts.append(RssItem(title: "Introducing Lazer", creator: "Team Super Monkey Bomb", pubDate: NSDate(), link: "https://zizhengwu.com/about", description: "description", content: "Introducing Lazer", imageHeading: "http://oyster.ignimgs.com/wordpress/stg.ign.com/2016/04/nkC6MH3.jpg", creatorAvatar: "http://www.clipartlord.com/wp-content/uploads/2016/01/gorilla6.png"))
         
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: #selector(RootViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        collectionView?.addSubview(self.refreshControl)
+        self.header.setRefreshingTarget(self, refreshingAction: #selector(RootViewController.refresh(_:)))
+        collectionView?.mj_header = self.header
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
@@ -69,7 +73,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.posts = [RssItem]()
         collectionView?.reloadData()
         retrieveArticles()
-        refreshControl.endRefreshing()
+        self.header.endRefreshing()
     }
     
     func retrieveArticles() {

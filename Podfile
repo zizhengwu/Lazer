@@ -13,4 +13,5 @@ pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Alamofire'
 pod 'Popover'
 pod 'KVOController'
+pod 'MJRefresh'
 
