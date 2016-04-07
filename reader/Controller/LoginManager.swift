@@ -11,7 +11,7 @@ class LoginManager: NSObject {
     static let sharedInstance = LoginManager()
     
     var cognitoId: String?
-    var loggedIn: Bool?
+    var loggedIn: Bool = false
     dynamic var userImage: UIImage?
     dynamic var userName: String?
     dynamic var userEmail: String?
@@ -65,7 +65,7 @@ class LoginManager: NSObject {
     }
     
     func sync() {
-        if self.dataset != nil && self.loggedIn! {
+        if self.loggedIn && self.dataset != nil {
             self.dataset!.synchronize().continueWithBlock {(task) -> AnyObject! in
                 
                 if task.error != nil {
@@ -78,7 +78,7 @@ class LoginManager: NSObject {
                 return nil
             }
         }
-        else if !self.loggedIn! {
+        else if !self.loggedIn {
             print("shouldn't sync since logged out")
         }
         else {

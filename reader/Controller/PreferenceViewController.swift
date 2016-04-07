@@ -170,11 +170,16 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
             }))
         }
         else {
-            alert.title = "Logged in as " + LoginManager.sharedInstance.userName!
-            alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { action in
-                FBSDKLoginManager().logOut()
-                LoginManager.sharedInstance.clearProfile()
-            }))
+            if let userName = LoginManager.sharedInstance.userName {
+                alert.title = "Logged in as " + userName
+                alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { action in
+                    FBSDKLoginManager().logOut()
+                    LoginManager.sharedInstance.clearProfile()
+                }))
+            }
+            else {
+                alert.title = "Offline"
+            }
         }
 
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
