@@ -11,5 +11,7 @@ pod 'AWSCore'
 pod 'AWSCognito'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Alamofire'
-pod 'Observable-Swift'
 pod 'Popover'
+pod 'KVOController'
+pod 'MJRefresh'
+

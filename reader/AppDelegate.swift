@@ -10,6 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        
         LoginManager.sharedInstance
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)

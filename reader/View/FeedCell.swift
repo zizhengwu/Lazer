@@ -27,7 +27,7 @@ class FeedCell: UICollectionViewCell {
                 
             }
             
-            if let statusText = post?.content {
+            if let statusText = post?.description {
                 statusTextView.text = statusText
             }
             
