@@ -208,6 +208,15 @@ extension RootViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         _ = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate(timeIntervalSinceNow: 6)
+        notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
+        notification.alertAction = "Read More"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        
         self.popover.dismiss()
     }
 }

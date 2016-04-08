@@ -49,7 +49,7 @@
 		24F700671CB5AB690032D240 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileController.swift; path = reader/Controller/UserProfileController.swift; sourceTree = "<group>"; };
 		34DDF0BECBEEC4F8A29624B0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6D8C8D5A977A8A10AC4E433F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		C7A85F301C78C137007E9A00 /* reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7A85F301C78C137007E9A00 /* Lazer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lazer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A85F331C78C137007E9A00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7A85F351C78C137007E9A00 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RootViewController.swift; path = reader/Controller/RootViewController.swift; sourceTree = "<group>"; };
 		C7A85F3A1C78C137007E9A00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		C7A85F311C78C137007E9A00 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7A85F301C78C137007E9A00 /* reader.app */,
+				C7A85F301C78C137007E9A00 /* Lazer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,9 +163,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C7A85F2F1C78C137007E9A00 /* reader */ = {
+		C7A85F2F1C78C137007E9A00 /* Lazer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "reader" */;
+			buildConfigurationList = C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "Lazer" */;
 			buildPhases = (
 				67484062890A8816FA20EB5B /* Check Pods Manifest.lock */,
 				C7A85F2C1C78C137007E9A00 /* Sources */,
@@ -178,9 +178,9 @@
 			);
 			dependencies = (
 			);
-			name = reader;
+			name = Lazer;
 			productName = facebookfeed2;
-			productReference = C7A85F301C78C137007E9A00 /* reader.app */;
+			productReference = C7A85F301C78C137007E9A00 /* Lazer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +199,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "reader" */;
+			buildConfigurationList = C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "Lazer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -212,7 +212,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C7A85F2F1C78C137007E9A00 /* reader */,
+				C7A85F2F1C78C137007E9A00 /* Lazer */,
 			);
 		};
 /* End PBXProject section */
@@ -412,7 +412,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.lazer;
-				PRODUCT_NAME = reader;
+				PRODUCT_NAME = Lazer;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -432,7 +432,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zizhengwu.lazer;
-				PRODUCT_NAME = reader;
+				PRODUCT_NAME = Lazer;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -440,7 +440,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "reader" */ = {
+		C7A85F2B1C78C137007E9A00 /* Build configuration list for PBXProject "Lazer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7A85F401C78C137007E9A00 /* Debug */,
@@ -449,7 +449,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "reader" */ = {
+		C7A85F421C78C137007E9A00 /* Build configuration list for PBXNativeTarget "Lazer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7A85F431C78C137007E9A00 /* Debug */,
