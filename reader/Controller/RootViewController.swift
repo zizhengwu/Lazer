@@ -73,19 +73,19 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         self.KVOController.observe(UserProfileController.sharedInstance, keyPath: "zenMode", options: [.Initial, .New]) { [weak self] _ in
             if UserProfileController.sharedInstance.zenMode {
-                UIApplication.sharedApplication().statusBarStyle = .LightContent
-                self?.navigationController?.navigationBar.barTintColor = Constant.zenModeNavigationBarColor
-                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Constant.zenModeTintColor]
-                self?.navigationController?.navigationBar.tintColor = Constant.zenModeTintColor
-                self?.settingsButton.tintColor = Constant.zenModeTintColor
-                self?.timerButton.tintColor = Constant.zenModeTintColor
+//                UIApplication.sharedApplication().statusBarStyle = .LightContent
+//                self?.navigationController?.navigationBar.barTintColor = Constant.zenModeNavigationBarColor
+//                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Constant.zenModeTintColor]
+//                self?.navigationController?.navigationBar.tintColor = Constant.zenModeTintColor
+//                self?.settingsButton.tintColor = Constant.zenModeTintColor
+                self?.timerButton.tintColor = UIColor.clearColor()
             }
             else {
-                UIApplication.sharedApplication().statusBarStyle = .Default
-                self?.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
-                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
-                self?.navigationController?.navigationBar.tintColor = UIColor.blackColor()
-                self?.settingsButton.tintColor = UIColor.blackColor()
+//                UIApplication.sharedApplication().statusBarStyle = .Default
+//                self?.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+//                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+//                self?.navigationController?.navigationBar.tintColor = UIColor.blackColor()
+//                self?.settingsButton.tintColor = UIColor.blackColor()
                 self?.timerButton.tintColor = UIColor.blackColor()
             }
         }
