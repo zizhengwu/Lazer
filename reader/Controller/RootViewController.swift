@@ -1,8 +1,8 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import Popover
 import MJRefresh
+import KVOController
 
 let cellId = "feedCell"
 
@@ -12,7 +12,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     var posts = [RssItem]()
     var settingsView = PreferenceViewController()
     var timerButton: UIButton!
-    private var popover: Popover!
+    var settingsButton: UIButton!
     let header: MJRefreshNormalHeader = {
         let header = MJRefreshNormalHeader()
         header.lastUpdatedTimeLabel.hidden = true
@@ -29,6 +29,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         posts.append(RssItem(title: "Introducing Lazer", creator: "Team Super Monkey Bomb", pubDate: NSDate(), link: "https://zizhengwu.com/about", description: "Welcome to Lazer! Lazer works as an information hub that aims to provide meaningful relax to the users. By choosing from different topic categories, users will build their own personal information hub with up to date articles.", content: "Welcome to Lazer! Lazer works as an information hub that aims to provide meaningful relax to the users. By choosing from different topic categories, users will build their own personal information hub with up to date articles. Now Lazer is available on both iOS and Android platform.<br><br>Lazer is certainly not another app to overwhelm you with endless information that you are not interested in. Lazer allows you to change topic preference at any time. After setting up each relax time period, Lazer articles will only be active within that period. When time is up, users will only see a quote after reading their current article. Only after the preset cool down time, which must be more than 30 minutes, will our inspiring quote be updated by new article set. <br><br>Categorizing and aggregating information is not easy. One of our goals is to make the life easier for our users, who only need to care about topics. What happens behind the curtain is more delicate. We modelled topics as top layer nodes. They point to source nodes in the intermediate hidden layer. Each source node generates new articles and hence needs checking periodically. <br><br>Harvesting articles from various sources is an automated process, while the association between topics and sources are maintained by content strategists. By simply connecting or disconnecting sources with topics, they could vastly alter what the users get. To help this role efficiently tailor content, an application is crucial to reduce the overhead that every tiny modification has go through the backend engineers. <br><br>This interface is available on both desktops and handheld devices. Source could be easily filtered by name and locate the ones to modify. Changes to the sources are automatically saved and accompanied by a very handy preview feature when applicable. We believe that content strategists are empowered by this responsive design to discover, re-organize and optimize, so that the articles delivered to the end devices are pertinent, abundant and engaging. <br><br>", imageHeading: "http://i.imgur.com/JoTiTtg.png", creatorAvatar: "http://i.imgur.com/hmyoWhi.png"))
         
+        setupViews()
+    }
+    
+    func setupViews() {
         self.header.setRefreshingTarget(self, refreshingAction: #selector(RootViewController.refresh(_:)))
         collectionView?.mj_header = self.header
         
@@ -42,10 +46,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
         
-        let settingsButton: UIButton = {
+        settingsButton = {
             let button = UIButton()
             button.frame = CGRectMake(0, 0, 25, 25)
-            button.setImage(UIImage(named: "Settings"), forState: .Normal)
+            button.setImage(UIImage(named: "Settings")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
             button.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
             return button
         }()
@@ -53,10 +57,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         timerButton = {
             let button = UIButton()
             button.frame = CGRectMake(0, 0, 25, 25)
-            button.setImage(UIImage(named: "Timer"), forState: .Normal)
+            button.setImage(UIImage(named: "Timer")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
             button.addTarget(self, action: #selector(RootViewController.timerClicked(_:)), forControlEvents: .TouchUpInside)
             return button
-        }()
+            }()
         
         //.... Set Right/Left Bar Button item
         let leftBarButton = UIBarButtonItem()
@@ -66,14 +70,33 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = timerButton
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        self.KVOController.observe(UserProfileController.sharedInstance, keyPath: "zenMode", options: [.Initial, .New]) { [weak self] _ in
+            if UserProfileController.sharedInstance.zenMode {
+                UIApplication.sharedApplication().statusBarStyle = .LightContent
+                self?.navigationController?.navigationBar.barTintColor = Constant.zenModeNavigationBarColor
+                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Constant.zenModeTintColor]
+                self?.navigationController?.navigationBar.tintColor = Constant.zenModeTintColor
+                self?.settingsButton.tintColor = Constant.zenModeTintColor
+                self?.timerButton.tintColor = Constant.zenModeTintColor
+            }
+            else {
+                UIApplication.sharedApplication().statusBarStyle = .Default
+                self?.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+                self?.navigationController?.navigationBar.tintColor = UIColor.blackColor()
+                self?.settingsButton.tintColor = UIColor.blackColor()
+                self?.timerButton.tintColor = UIColor.blackColor()
+            }
+        }
     }
     
     func refresh(sender:AnyObject)
     {
+        self.header.beginRefreshing()
         self.posts = [RssItem]()
         collectionView?.reloadData()
         retrieveArticles()
-        self.header.endRefreshing()
     }
     
     func retrieveArticles() {
@@ -85,9 +108,13 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         print(urlsToBeRetrieved)
         
+        let group = dispatch_group_create()
+        
         for url in urlsToBeRetrieved {
+            dispatch_group_enter(group)
             Alamofire.request(.POST, "http://chi01.xuleijr.com/api/subscriptions/7c96422964215320482", parameters: ["channels": url])
                 .responseString { response in
+                    dispatch_group_leave(group)
                     if let value = response.result.value {
                         let json = JSON.parse(value as String)["items"]
                         for (_, item):(String, JSON) in json {
@@ -98,25 +125,55 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
                     }
             }
         }
+        
+        dispatch_group_notify(group, dispatch_get_main_queue()) {
+            self.header.endRefreshing()
+        }
     }
     
     func timerClicked(sender: UIButton!) {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 3, height: 135))
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.scrollEnabled = false
-        tableView.separatorStyle = .None
-        let popoverOptions: [PopoverOption] = [
-            .Type(.Down),
-            .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6)),
-            .ArrowSize(CGSizeZero),
-        ]
-        self.popover = Popover(options: popoverOptions, showHandler: nil, dismissHandler: nil)
-        self.popover.show(tableView, fromView: self.timerButton)
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        if UserProfileController.sharedInstance.zenMode {
+            alert.title = "You are in zen mode"
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        }
+        else {
+            alert.title = "Just don't have too much fun"
+            alert.addAction(UIAlertAction(title: "5 mins", style: .Default, handler: { action in
+                self.changePreferredRelaxationTime(5.0)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "10 mins", style: .Default, handler: { action in
+                self.changePreferredRelaxationTime(10.0)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        }
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func changePreferredRelaxationTime(time: Double) {
+        UserProfileController.sharedInstance.preferredRelaxationTime = time
+    }
+    
+    func zenMode() {
+        UserProfileController.sharedInstance.zenMode = true
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime) * 2, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate(timeIntervalSinceNow: 6)
+        notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
+        notification.alertAction = "Read More"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
     func addTimeoutOverlay() {
         if let _ = overlay {
+            UserProfileController.sharedInstance.zenMode = false
             overlay?.removeFromSuperview()
             overlay = nil
         }
@@ -176,6 +233,9 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if !UserProfileController.sharedInstance.zenMode {
+            zenMode()
+        }
         let rssItem = RssItem(title: posts[indexPath.row].title, creator: posts[indexPath.row].creator, pubDate: NSDate(), link: posts[indexPath.row].link, description: "", content: posts[indexPath.row].content, imageHeading: posts[indexPath.row].imageHeading, creatorAvatar: posts[indexPath.row].creatorAvatar)
         let articleContentViewController = ArticleContentViewController(rssItem: rssItem)
         navigationController?.pushViewController(articleContentViewController, animated: true)
@@ -200,37 +260,3 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
 }
-
-
-// setup timer popover
-
-extension RootViewController: UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        _ = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        
-        let notification = UILocalNotification()
-        notification.fireDate = NSDate(timeIntervalSinceNow: 6)
-        notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
-        notification.alertAction = "Read More"
-        notification.soundName = UILocalNotificationDefaultSoundName
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        
-        self.popover.dismiss()
-    }
-}
-
-extension RootViewController: UITableViewDataSource {
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 3
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
-        cell.textLabel?.text = String(Constant.TIMER_OPTIONS[indexPath.row]) + " mins"
-        return cell
-    }
-}
-

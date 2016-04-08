@@ -1,9 +1,16 @@
 import SwiftyJSON
 
-class UserProfileController {
+class UserProfileController: NSObject {
     static let sharedInstance = UserProfileController()
     
     var tags = [Tag]()
+    var preferredRelaxationTime: Double
+    dynamic var zenMode: Bool
+    
+    override init () {
+        preferredRelaxationTime = 5.0
+        zenMode = false
+    }
     
     func initializeTags() {
         for tagOption in Constant.TAG_OPTIONS {
