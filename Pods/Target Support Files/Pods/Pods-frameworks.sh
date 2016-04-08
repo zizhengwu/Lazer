@@ -93,7 +93,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/FBSDKShareKit.framework"
   install_framework "Pods/KVOController.framework"
   install_framework "Pods/MJRefresh.framework"
-  install_framework "Pods/Popover.framework"
   install_framework "Pods/SnapKit.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi
@@ -107,7 +106,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/FBSDKShareKit.framework"
   install_framework "Pods/KVOController.framework"
   install_framework "Pods/MJRefresh.framework"
-  install_framework "Pods/Popover.framework"
   install_framework "Pods/SnapKit.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi

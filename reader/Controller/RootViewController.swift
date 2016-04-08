@@ -1,7 +1,6 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import Popover
 import MJRefresh
 
 let cellId = "feedCell"
@@ -12,7 +11,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     var posts = [RssItem]()
     var settingsView = PreferenceViewController()
     var timerButton: UIButton!
-    private var popover: Popover!
     let header: MJRefreshNormalHeader = {
         let header = MJRefreshNormalHeader()
         header.lastUpdatedTimeLabel.hidden = true
@@ -101,18 +99,34 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func timerClicked(sender: UIButton!) {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width / 3, height: 135))
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.scrollEnabled = false
-        tableView.separatorStyle = .None
-        let popoverOptions: [PopoverOption] = [
-            .Type(.Down),
-            .BlackOverlayColor(UIColor(white: 0.0, alpha: 0.6)),
-            .ArrowSize(CGSizeZero),
-        ]
-        self.popover = Popover(options: popoverOptions, showHandler: nil, dismissHandler: nil)
-        self.popover.show(tableView, fromView: self.timerButton)
+        
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        alert.title = "Just don't have too much fun"
+        alert.addAction(UIAlertAction(title: "5 mins", style: .Default, handler: { action in
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "10 mins", style: .Default, handler: { action in
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func timerChanged(time: Int) {
+        
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(time), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(time) * 2, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate(timeIntervalSinceNow: 6)
+        notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
+        notification.alertAction = "Read More"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
     func addTimeoutOverlay() {
@@ -200,37 +214,3 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
 }
-
-
-// setup timer popover
-
-extension RootViewController: UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        _ = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        
-        let notification = UILocalNotification()
-        notification.fireDate = NSDate(timeIntervalSinceNow: 6)
-        notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
-        notification.alertAction = "Read More"
-        notification.soundName = UILocalNotificationDefaultSoundName
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        
-        self.popover.dismiss()
-    }
-}
-
-extension RootViewController: UITableViewDataSource {
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 3
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
-        cell.textLabel?.text = String(Constant.TIMER_OPTIONS[indexPath.row]) + " mins"
-        return cell
-    }
-}
-

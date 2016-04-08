@@ -17,7 +17,6 @@ PODS:
     - FBSDKCoreKit
   - KVOController (1.1.0)
   - MJRefresh (3.1.0)
-  - Popover (0.9.0)
   - SnapKit (0.19.1)
   - SwiftyJSON (2.3.2)
 
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - FBSDKShareKit
   - KVOController
   - MJRefresh
-  - Popover
   - SnapKit
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -54,7 +52,6 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
   KVOController: 321b5fc59300fcaabd42c0f679baa7a27efbb2fd
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
-  Popover: e5a2cbfa29bb982c95cff0d7eb94f47173dbfbcc
   SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
