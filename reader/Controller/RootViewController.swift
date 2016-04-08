@@ -99,27 +99,36 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func timerClicked(sender: UIButton!) {
-        
         let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        alert.title = "Just don't have too much fun"
-        alert.addAction(UIAlertAction(title: "5 mins", style: .Default, handler: { action in
+        if UserProfileController.sharedInstance.zenMode {
+            alert.title = "You are in zen mode"
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        }
+        else {
+            alert.title = "Just don't have too much fun"
+            alert.addAction(UIAlertAction(title: "5 mins", style: .Default, handler: { action in
+                self.changePreferredRelaxationTime(5.0)
+            }))
             
-        }))
-        
-        alert.addAction(UIAlertAction(title: "10 mins", style: .Default, handler: { action in
+            alert.addAction(UIAlertAction(title: "10 mins", style: .Default, handler: { action in
+                self.changePreferredRelaxationTime(10.0)
+            }))
             
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        }
         
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    func timerChanged(time: Int) {
-        
-        _ = NSTimer.scheduledTimerWithTimeInterval(Double(time), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        _ = NSTimer.scheduledTimerWithTimeInterval(Double(time) * 2, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+    func changePreferredRelaxationTime(time: Double) {
+        UserProfileController.sharedInstance.preferredRelaxationTime = time
+    }
+    
+    func zenMode() {
+        UserProfileController.sharedInstance.zenMode = true
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime) * 2, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
         
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 6)
@@ -131,6 +140,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func addTimeoutOverlay() {
         if let _ = overlay {
+            UserProfileController.sharedInstance.zenMode = false
             overlay?.removeFromSuperview()
             overlay = nil
         }
@@ -190,6 +200,9 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if !UserProfileController.sharedInstance.zenMode {
+            zenMode()
+        }
         let rssItem = RssItem(title: posts[indexPath.row].title, creator: posts[indexPath.row].creator, pubDate: NSDate(), link: posts[indexPath.row].link, description: "", content: posts[indexPath.row].content, imageHeading: posts[indexPath.row].imageHeading, creatorAvatar: posts[indexPath.row].creatorAvatar)
         let articleContentViewController = ArticleContentViewController(rssItem: rssItem)
         navigationController?.pushViewController(articleContentViewController, animated: true)

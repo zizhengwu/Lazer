@@ -4,6 +4,13 @@ class UserProfileController {
     static let sharedInstance = UserProfileController()
     
     var tags = [Tag]()
+    var preferredRelaxationTime: Double
+    var zenMode: Bool
+    
+    init () {
+        preferredRelaxationTime = 5.0
+        zenMode = false
+    }
     
     func initializeTags() {
         for tagOption in Constant.TAG_OPTIONS {
