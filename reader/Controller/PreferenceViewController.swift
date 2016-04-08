@@ -183,6 +183,10 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         }
 
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        alert.popoverPresentationController?.sourceView = avatarImageView
+        alert.popoverPresentationController?.sourceRect.origin.x = CGRectGetMidX((avatarImageView?.bounds)!)
+        alert.popoverPresentationController?.sourceRect.origin.y = CGRectGetMidY((avatarImageView?.bounds)!)
         self.presentViewController(alert, animated: true, completion: nil)
     }
     

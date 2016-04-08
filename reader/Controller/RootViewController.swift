@@ -151,6 +151,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         }
         
+        alert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
