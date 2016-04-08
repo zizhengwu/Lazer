@@ -93,10 +93,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func refresh(sender:AnyObject)
     {
+        self.header.beginRefreshing()
         self.posts = [RssItem]()
         collectionView?.reloadData()
         retrieveArticles()
-        self.header.endRefreshing()
     }
     
     func retrieveArticles() {
@@ -108,9 +108,13 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         print(urlsToBeRetrieved)
         
+        let group = dispatch_group_create()
+        
         for url in urlsToBeRetrieved {
+            dispatch_group_enter(group)
             Alamofire.request(.POST, "http://chi01.xuleijr.com/api/subscriptions/7c96422964215320482", parameters: ["channels": url])
                 .responseString { response in
+                    dispatch_group_leave(group)
                     if let value = response.result.value {
                         let json = JSON.parse(value as String)["items"]
                         for (_, item):(String, JSON) in json {
@@ -120,6 +124,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
                         }
                     }
             }
+        }
+        
+        dispatch_group_notify(group, dispatch_get_main_queue()) {
+            self.header.endRefreshing()
         }
     }
     
