@@ -1,13 +1,13 @@
 import SwiftyJSON
 
-class UserProfileController {
+class UserProfileController: NSObject {
     static let sharedInstance = UserProfileController()
     
     var tags = [Tag]()
     var preferredRelaxationTime: Double
-    var zenMode: Bool
+    dynamic var zenMode: Bool
     
-    init () {
+    override init () {
         preferredRelaxationTime = 5.0
         zenMode = false
     }

@@ -2,6 +2,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import MJRefresh
+import KVOController
 
 let cellId = "feedCell"
 
@@ -11,6 +12,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     var posts = [RssItem]()
     var settingsView = PreferenceViewController()
     var timerButton: UIButton!
+    var settingsButton: UIButton!
     let header: MJRefreshNormalHeader = {
         let header = MJRefreshNormalHeader()
         header.lastUpdatedTimeLabel.hidden = true
@@ -27,6 +29,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         posts.append(RssItem(title: "Introducing Lazer", creator: "Team Super Monkey Bomb", pubDate: NSDate(), link: "https://zizhengwu.com/about", description: "Welcome to Lazer! Lazer works as an information hub that aims to provide meaningful relax to the users. By choosing from different topic categories, users will build their own personal information hub with up to date articles.", content: "Welcome to Lazer! Lazer works as an information hub that aims to provide meaningful relax to the users. By choosing from different topic categories, users will build their own personal information hub with up to date articles. Now Lazer is available on both iOS and Android platform.<br><br>Lazer is certainly not another app to overwhelm you with endless information that you are not interested in. Lazer allows you to change topic preference at any time. After setting up each relax time period, Lazer articles will only be active within that period. When time is up, users will only see a quote after reading their current article. Only after the preset cool down time, which must be more than 30 minutes, will our inspiring quote be updated by new article set. <br><br>Categorizing and aggregating information is not easy. One of our goals is to make the life easier for our users, who only need to care about topics. What happens behind the curtain is more delicate. We modelled topics as top layer nodes. They point to source nodes in the intermediate hidden layer. Each source node generates new articles and hence needs checking periodically. <br><br>Harvesting articles from various sources is an automated process, while the association between topics and sources are maintained by content strategists. By simply connecting or disconnecting sources with topics, they could vastly alter what the users get. To help this role efficiently tailor content, an application is crucial to reduce the overhead that every tiny modification has go through the backend engineers. <br><br>This interface is available on both desktops and handheld devices. Source could be easily filtered by name and locate the ones to modify. Changes to the sources are automatically saved and accompanied by a very handy preview feature when applicable. We believe that content strategists are empowered by this responsive design to discover, re-organize and optimize, so that the articles delivered to the end devices are pertinent, abundant and engaging. <br><br>", imageHeading: "http://i.imgur.com/JoTiTtg.png", creatorAvatar: "http://i.imgur.com/hmyoWhi.png"))
         
+        setupViews()
+    }
+    
+    func setupViews() {
         self.header.setRefreshingTarget(self, refreshingAction: #selector(RootViewController.refresh(_:)))
         collectionView?.mj_header = self.header
         
@@ -40,10 +46,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         collectionView?.registerClass(FeedCell.self, forCellWithReuseIdentifier: cellId)
         
-        let settingsButton: UIButton = {
+        settingsButton = {
             let button = UIButton()
             button.frame = CGRectMake(0, 0, 25, 25)
-            button.setImage(UIImage(named: "Settings"), forState: .Normal)
+            button.setImage(UIImage(named: "Settings")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
             button.addTarget(self, action: #selector(RootViewController.settingsClicked(_:)), forControlEvents: .TouchUpInside)
             return button
         }()
@@ -51,10 +57,10 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         timerButton = {
             let button = UIButton()
             button.frame = CGRectMake(0, 0, 25, 25)
-            button.setImage(UIImage(named: "Timer"), forState: .Normal)
+            button.setImage(UIImage(named: "Timer")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
             button.addTarget(self, action: #selector(RootViewController.timerClicked(_:)), forControlEvents: .TouchUpInside)
             return button
-        }()
+            }()
         
         //.... Set Right/Left Bar Button item
         let leftBarButton = UIBarButtonItem()
@@ -64,6 +70,25 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = timerButton
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        self.KVOController.observe(UserProfileController.sharedInstance, keyPath: "zenMode", options: [.Initial, .New]) { [weak self] _ in
+            if UserProfileController.sharedInstance.zenMode {
+                UIApplication.sharedApplication().statusBarStyle = .LightContent
+                self?.navigationController?.navigationBar.barTintColor = Constant.zenModeNavigationBarColor
+                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Constant.zenModeTintColor]
+                self?.navigationController?.navigationBar.tintColor = Constant.zenModeTintColor
+                self?.settingsButton.tintColor = Constant.zenModeTintColor
+                self?.timerButton.tintColor = Constant.zenModeTintColor
+            }
+            else {
+                UIApplication.sharedApplication().statusBarStyle = .Default
+                self?.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+                self?.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+                self?.navigationController?.navigationBar.tintColor = UIColor.blackColor()
+                self?.settingsButton.tintColor = UIColor.blackColor()
+                self?.timerButton.tintColor = UIColor.blackColor()
+            }
+        }
     }
     
     func refresh(sender:AnyObject)
