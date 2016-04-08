@@ -151,7 +151,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         if FBSDKAccessToken.currentAccessToken() == nil {
-            alert.title = "Login with ..."
+            alert.title = "Login with..."
             alert.addAction(UIAlertAction(title: "Facebook", style: .Default, handler: { action in
                 FBSDKLoginManager().logInWithReadPermissions(["email"], fromViewController: self, handler: { (result, error) -> Void in
                     if (error == nil) {
