@@ -118,7 +118,18 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
                     if let value = response.result.value {
                         let json = JSON.parse(value as String)["items"]
                         for (_, item):(String, JSON) in json {
-                            let post = RssItem(title: item["title"].string!, creator: "creator", pubDate: NSDate(), link: item["link"].string!, description: item["summary"].string!, content: item["original"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
+                            // a bug in the backend, should be deleted!
+                            let description: String
+                            if let _ = item["summary"].string {
+                                description = item["summary"].string!
+                            }
+                            else {
+                                description = ""
+                            }
+                            let post = RssItem(title: item["title"].string!, creator: item["author"].string!, pubDate: NSDate(), link: item["link"].string!, description: description, content: item["original"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
+                            // deleted until here
+                            
+//                            let post = RssItem(title: item["title"].string!, creator: "creator", pubDate: NSDate(), link: item["link"].string!, description: item["summary"].string!, content: item["original"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
                             self.posts.append(post)
                             self.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: self.posts.count - 1, inSection: 0)])
                         }
@@ -162,7 +173,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     func zenMode() {
         UserProfileController.sharedInstance.zenMode = true
         _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime) * 2, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(Double(20), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
         
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 6)
