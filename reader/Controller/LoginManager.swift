@@ -73,6 +73,7 @@ class LoginManager: NSObject {
                     
                 } else {
                     // Task succeeded. The data was saved in the sync store.
+                    UserProfileController.sharedInstance.reloadTags()
                     
                 }
                 return nil

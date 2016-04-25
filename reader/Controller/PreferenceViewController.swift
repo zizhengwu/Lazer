@@ -20,6 +20,15 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
         // Do any additional setup after loading the view, typically from a nib.
         
         setupViews()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PreferenceViewController.methodOfReceivedNotification(_:)), name:"TagsUpdate", object: nil)
+    }
+    
+    func methodOfReceivedNotification(notification: NSNotification) {
+        print("tags updated")
+        dispatch_async(dispatch_get_main_queue()) {
+            self.collectionView.reloadData()
+        }
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -112,8 +121,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
     
     override func viewDidAppear(animated: Bool) {
-        UserProfileController.sharedInstance.reloadTags()
-        self.collectionView.reloadData()
+        
     }
     
     func drawProfile() {
