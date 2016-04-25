@@ -118,18 +118,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
                     if let value = response.result.value {
                         let json = JSON.parse(value as String)["items"]
                         for (_, item):(String, JSON) in json {
-                            // a bug in the backend, should be deleted!
-                            let description: String
-                            if let _ = item["summary"].string {
-                                description = item["summary"].string!
-                            }
-                            else {
-                                description = ""
-                            }
-                            let post = RssItem(title: item["title"].string!, creator: item["author"].string!, pubDate: NSDate(), link: item["link"].string!, description: description, content: item["original"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
-                            // deleted until here
-                            
-//                            let post = RssItem(title: item["title"].string!, creator: "creator", pubDate: NSDate(), link: item["link"].string!, description: item["summary"].string!, content: item["original"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
+                            let post = RssItem(title: item["title"].string!, creator: item["author"].string!, pubDate: NSDate(), link: item["link"].string!, description: item["summary"].string!, content: item["original"].string!, imageHeading: item["cover"].string!, creatorAvatar: item["icon"].string!)
                             self.posts.append(post)
                             self.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: self.posts.count - 1, inSection: 0)])
                         }

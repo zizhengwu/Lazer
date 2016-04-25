@@ -32,7 +32,7 @@ class FeedCell: UICollectionViewCell {
             }
             
             if let profileImageUrl = post?.creatorAvatar {
-                NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: profileImageUrl)!, completionHandler: { (data, response, error) -> Void in
+                NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: profileImageUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)!, completionHandler: { (data, response, error) -> Void in
                     
                     if error != nil {
                         print(error)
