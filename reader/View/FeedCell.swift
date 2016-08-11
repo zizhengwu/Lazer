@@ -43,7 +43,6 @@ class FeedCell: UICollectionViewCell {
                         self.profileImageView.image = image
                     })
                     
-                    
                 }).resume()
             }
             
@@ -52,7 +51,7 @@ class FeedCell: UICollectionViewCell {
             }
             
             if let statusImageUrl = post?.imageHeading {
-                NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: statusImageUrl)!, completionHandler: { (data, response, error) -> Void in
+                NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: statusImageUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)!, completionHandler: { (data, response, error) -> Void in
                     
                     if error != nil {
                         print(error)
