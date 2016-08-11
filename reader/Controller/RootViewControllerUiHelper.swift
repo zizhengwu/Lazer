@@ -8,10 +8,13 @@ extension RootViewController {
             removeTimeoutOverlay()
         }
         else {
-            UserProfileController.sharedInstance.zenMode = true
-            if NSDate().isGreaterThanDate(Constant.startZenTime) {
+            if NSDate().isGreaterThanDate(Constant.startZenTime) && NSDate().isLessThanDate(Constant.endZenTime) {
                 addTimeoutOverlay()
             }
+        }
+        
+        if NSDate().isGreaterThanDate(Constant.firstReadTime) && NSDate().isLessThanDate(Constant.endZenTime) {
+            UserProfileController.sharedInstance.zenMode = true
         }
     }
     
@@ -44,10 +47,11 @@ extension RootViewController {
     }
     
     func zenMode() {
-        UserProfileController.sharedInstance.zenMode = true
         Constant.endZenTime = NSDate().addMinutes(Int(UserProfileController.sharedInstance.preferredRelaxationTime))
         NSUserDefaults.standardUserDefaults().setObject(NSDate().addSeconds(Int(UserProfileController.sharedInstance.preferredRelaxationTime)), forKey: "startZenTime")
         NSUserDefaults.standardUserDefaults().setObject(NSDate().addMinutes(Int(UserProfileController.sharedInstance.preferredRelaxationTime)), forKey: "endZenTime")
+        NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: "firstReadTime")
+        everyFiveSecond()
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 6)
         notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
