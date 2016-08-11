@@ -39,9 +39,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleData()
+        everyFiveSecond()
         initializeFetchedResultsController()
-        
         UserProfileController.sharedInstance.reloadTags()
         setupViews()
     }

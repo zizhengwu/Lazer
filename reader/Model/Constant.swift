@@ -8,7 +8,8 @@ class Constant {
     static let TIMER_OPTIONS = [5, 10, 20]
     static let zenModeNavigationBarColor = UIColor.blackColor()
     static let zenModeTintColor = UIColor.whiteColor()
-    
+    static var endZenTime: NSDate = NSUserDefaults.standardUserDefaults().objectForKey("endZenTime") as? NSDate ?? NSDate()
+    static var startZenTime: NSDate = NSUserDefaults.standardUserDefaults().objectForKey("startZenTime") as? NSDate ?? NSDate()
     static func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,

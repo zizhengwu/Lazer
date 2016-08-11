@@ -3,6 +3,18 @@ import UIKit
 import KVOController
 
 extension RootViewController {
+    func everyFiveSecond() {
+        if NSDate().isGreaterThanDate(Constant.endZenTime) {
+            removeTimeoutOverlay()
+        }
+        else {
+            UserProfileController.sharedInstance.zenMode = true
+            if NSDate().isGreaterThanDate(Constant.startZenTime) {
+                addTimeoutOverlay()
+            }
+        }
+    }
+    
     func timerClicked(sender: UIButton!) {
         let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
@@ -33,9 +45,9 @@ extension RootViewController {
     
     func zenMode() {
         UserProfileController.sharedInstance.zenMode = true
-        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime), target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        _ = NSTimer.scheduledTimerWithTimeInterval(Double(UserProfileController.sharedInstance.preferredRelaxationTime) * 2, target: self, selector: #selector(addTimeoutOverlay), userInfo: nil, repeats: false)
-        
+        Constant.endZenTime = NSDate().addMinutes(Int(UserProfileController.sharedInstance.preferredRelaxationTime))
+        NSUserDefaults.standardUserDefaults().setObject(NSDate().addSeconds(Int(UserProfileController.sharedInstance.preferredRelaxationTime)), forKey: "startZenTime")
+        NSUserDefaults.standardUserDefaults().setObject(NSDate().addMinutes(Int(UserProfileController.sharedInstance.preferredRelaxationTime)), forKey: "endZenTime")
         let notification = UILocalNotification()
         notification.fireDate = NSDate(timeIntervalSinceNow: 6)
         notification.alertBody = "Hope this message finds you enjoying your last 30 minutes."
@@ -44,11 +56,20 @@ extension RootViewController {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
     
-    func addTimeoutOverlay() {
+    func removeTimeoutOverlay() {
         if let _ = overlay {
+            // overlay doesn't exist, do nothing
+        }
+        else {
             UserProfileController.sharedInstance.zenMode = false
             overlay?.removeFromSuperview()
             overlay = nil
+        }
+    }
+    
+    func addTimeoutOverlay() {
+        if let _ = overlay {
+            // overlay already, do nothing
         }
         else {
             overlay = UIView(frame: view.frame)
@@ -94,6 +115,8 @@ extension RootViewController {
     }
     
     func setupViews() {
+        var _ = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(RootViewController.everyFiveSecond), userInfo: nil, repeats: true)
+        
         self.header.setRefreshingTarget(self, refreshingAction: #selector(RootViewController.refresh(_:)))
         collectionView?.mj_header = self.header
         
