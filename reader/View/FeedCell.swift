@@ -9,8 +9,6 @@ class FeedCell: UICollectionViewCell {
             
             profileImageView.image = nil
             
-//            loader.startAnimating()
-            
             if let name = post?.creator {
                 
                 let attributedText = NSMutableAttributedString(string: name, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(14)])

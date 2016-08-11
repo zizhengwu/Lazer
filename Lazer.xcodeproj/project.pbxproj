@@ -18,13 +18,16 @@
 		2477D19C1C8D095000A4D6BF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19B1C8D095000A4D6BF /* Post.swift */; };
 		2477D19E1C8D099000A4D6BF /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19D1C8D099000A4D6BF /* FeedCell.swift */; };
 		2477D1A01C8D0A1100A4D6BF /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477D19F1C8D0A1100A4D6BF /* Extension.swift */; };
-		247CFF7C1C8D1149001596DB /* RssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CFF7B1C8D1149001596DB /* RssItem.swift */; };
+		247CFF7C1C8D1149001596DB /* RawPostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CFF7B1C8D1149001596DB /* RawPostItem.swift */; };
 		247CFF7E1C8D11C8001596DB /* ArticleContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */; };
 		2484F6C71C9CFF160002C216 /* Css.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2484F6C61C9CFF150002C216 /* Css.swift */; };
 		2488E7B31C8D481A00B50581 /* Css in Resources */ = {isa = PBXBuildFile; fileRef = 2488E7B21C8D481A00B50581 /* Css */; };
 		24E719F61D5C8AE500C14CD7 /* Lazer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 24E719F41D5C8AE500C14CD7 /* Lazer.xcdatamodeld */; };
 		24E719F91D5C8C1600C14CD7 /* PostItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E719F71D5C8C1600C14CD7 /* PostItem+CoreDataProperties.swift */; };
 		24E719FA1D5C8C1600C14CD7 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E719F81D5C8C1600C14CD7 /* PostItem.swift */; };
+		24E71A1D1D5CA58D00C14CD7 /* RootViewControllerCoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E71A1C1D5CA58D00C14CD7 /* RootViewControllerCoreDataHelper.swift */; };
+		24E71A1F1D5CCF7200C14CD7 /* RootViewControllerRestfulHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E71A1E1D5CCF7200C14CD7 /* RootViewControllerRestfulHelper.swift */; };
+		24E71A211D5CD0DD00C14CD7 /* RootViewControllerUiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E71A201D5CD0DD00C14CD7 /* RootViewControllerUiHelper.swift */; };
 		24F700681CB5AB690032D240 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F700671CB5AB690032D240 /* UserProfileController.swift */; };
 		B35C85A5DA0503DF548F9B98 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECAA2AD7ADBBCB18A5703D9 /* Pods.framework */; };
 		C7A85F341C78C137007E9A00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A85F331C78C137007E9A00 /* AppDelegate.swift */; };
@@ -45,13 +48,16 @@
 		2477D19B1C8D095000A4D6BF /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = reader/Model/Post.swift; sourceTree = "<group>"; };
 		2477D19D1C8D099000A4D6BF /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedCell.swift; path = reader/View/FeedCell.swift; sourceTree = "<group>"; };
 		2477D19F1C8D0A1100A4D6BF /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		247CFF7B1C8D1149001596DB /* RssItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RssItem.swift; path = reader/Model/RssItem.swift; sourceTree = "<group>"; };
+		247CFF7B1C8D1149001596DB /* RawPostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawPostItem.swift; path = reader/Model/RawPostItem.swift; sourceTree = "<group>"; };
 		247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleContentViewController.swift; path = reader/Controller/ArticleContentViewController.swift; sourceTree = "<group>"; };
 		2484F6C61C9CFF150002C216 /* Css.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Css.swift; path = reader/Model/Css.swift; sourceTree = "<group>"; };
 		2488E7B21C8D481A00B50581 /* Css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Css; sourceTree = "<group>"; };
 		24E719F51D5C8AE500C14CD7 /* Lazer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lazer.xcdatamodel; sourceTree = "<group>"; };
 		24E719F71D5C8C1600C14CD7 /* PostItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PostItem+CoreDataProperties.swift"; path = "reader/Model/PostItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		24E719F81D5C8C1600C14CD7 /* PostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItem.swift; path = reader/Model/PostItem.swift; sourceTree = "<group>"; };
+		24E71A1C1D5CA58D00C14CD7 /* RootViewControllerCoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootViewControllerCoreDataHelper.swift; path = reader/Controller/RootViewControllerCoreDataHelper.swift; sourceTree = "<group>"; };
+		24E71A1E1D5CCF7200C14CD7 /* RootViewControllerRestfulHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootViewControllerRestfulHelper.swift; path = reader/Controller/RootViewControllerRestfulHelper.swift; sourceTree = "<group>"; };
+		24E71A201D5CD0DD00C14CD7 /* RootViewControllerUiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootViewControllerUiHelper.swift; path = reader/Controller/RootViewControllerUiHelper.swift; sourceTree = "<group>"; };
 		24F700671CB5AB690032D240 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileController.swift; path = reader/Controller/UserProfileController.swift; sourceTree = "<group>"; };
 		34DDF0BECBEEC4F8A29624B0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6D8C8D5A977A8A10AC4E433F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -84,7 +90,7 @@
 			children = (
 				24E719F71D5C8C1600C14CD7 /* PostItem+CoreDataProperties.swift */,
 				24E719F81D5C8C1600C14CD7 /* PostItem.swift */,
-				247CFF7B1C8D1149001596DB /* RssItem.swift */,
+				247CFF7B1C8D1149001596DB /* RawPostItem.swift */,
 				24E719F41D5C8AE500C14CD7 /* Lazer.xcdatamodeld */,
 				2484F6C61C9CFF150002C216 /* Css.swift */,
 				2477D19B1C8D095000A4D6BF /* Post.swift */,
@@ -106,11 +112,14 @@
 		2484F6C51C9CFE060002C216 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				24E71A1C1D5CA58D00C14CD7 /* RootViewControllerCoreDataHelper.swift */,
 				C7A85F351C78C137007E9A00 /* RootViewController.swift */,
 				247CFF7D1C8D11C8001596DB /* ArticleContentViewController.swift */,
 				24473E571CA221A3000B0AF9 /* PreferenceViewController.swift */,
 				241587FF1CA7228600BCE3E0 /* LoginManager.swift */,
 				24F700671CB5AB690032D240 /* UserProfileController.swift */,
+				24E71A1E1D5CCF7200C14CD7 /* RootViewControllerRestfulHelper.swift */,
+				24E71A201D5CD0DD00C14CD7 /* RootViewControllerUiHelper.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -296,6 +305,8 @@
 				24473E581CA221A3000B0AF9 /* PreferenceViewController.swift in Sources */,
 				24E719FA1D5C8C1600C14CD7 /* PostItem.swift in Sources */,
 				247CFF7E1C8D11C8001596DB /* ArticleContentViewController.swift in Sources */,
+				24E71A1D1D5CA58D00C14CD7 /* RootViewControllerCoreDataHelper.swift in Sources */,
+				24E71A211D5CD0DD00C14CD7 /* RootViewControllerUiHelper.swift in Sources */,
 				24E719F61D5C8AE500C14CD7 /* Lazer.xcdatamodeld in Sources */,
 				24E719F91D5C8C1600C14CD7 /* PostItem+CoreDataProperties.swift in Sources */,
 				2477D1A01C8D0A1100A4D6BF /* Extension.swift in Sources */,
@@ -308,7 +319,8 @@
 				C7A85F341C78C137007E9A00 /* AppDelegate.swift in Sources */,
 				24473E561CA2217D000B0AF9 /* TagCell.swift in Sources */,
 				2484F6C71C9CFF160002C216 /* Css.swift in Sources */,
-				247CFF7C1C8D1149001596DB /* RssItem.swift in Sources */,
+				24E71A1F1D5CCF7200C14CD7 /* RootViewControllerRestfulHelper.swift in Sources */,
+				247CFF7C1C8D1149001596DB /* RawPostItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
