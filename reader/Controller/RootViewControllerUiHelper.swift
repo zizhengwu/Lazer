@@ -58,18 +58,18 @@ extension RootViewController {
     
     func removeTimeoutOverlay() {
         if let _ = overlay {
-            // overlay doesn't exist, do nothing
-        }
-        else {
             UserProfileController.sharedInstance.zenMode = false
             overlay?.removeFromSuperview()
             overlay = nil
+        }
+        else {
+            // overlay doesn't exist, do nothing
         }
     }
     
     func addTimeoutOverlay() {
         if let _ = overlay {
-            // overlay already, do nothing
+            // overlay already exists, do nothing
         }
         else {
             overlay = UIView(frame: view.frame)
