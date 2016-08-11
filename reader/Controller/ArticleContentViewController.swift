@@ -2,11 +2,11 @@ import Foundation
 import UIKit
 
 class ArticleContentViewController : UIViewController, UIWebViewDelegate {
-    var _rssItem: RssItem
+    var _postItem: PostItem
     var _webView: UIWebView
     
-    init(rssItem: RssItem) {
-        self._rssItem = rssItem
+    init(postItem: PostItem) {
+        self._postItem = postItem
         self._webView = UIWebView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
         self._webView.backgroundColor = UIColor.whiteColor()
         self._webView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -21,7 +21,7 @@ class ArticleContentViewController : UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        _webView.loadHTMLString((Css.head + Css.lightBody + ArticleContentViewController.titleHtml(_rssItem.link, time: _rssItem.pubDate, title: _rssItem.title, author: _rssItem.creator, feed: "") + _rssItem.content + Css.tail), baseURL: nil)
+        _webView.loadHTMLString((Css.head + Css.lightBody + ArticleContentViewController.titleHtml(_postItem.link!, time: _postItem.pubDate!, title: _postItem.title!, author: _postItem.creator!, feed: "") + _postItem.content! + Css.tail), baseURL: nil)
         self.view.addSubview(_webView)
         _webView.delegate = self
     }

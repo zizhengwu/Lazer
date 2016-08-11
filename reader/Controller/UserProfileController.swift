@@ -25,6 +25,7 @@ class UserProfileController: NSObject {
         var tagsSelectedJson: JSON
         if LoginManager.sharedInstance.dataset != nil {
             if let tagsSelectedString = LoginManager.sharedInstance.dataset!.stringForKey("tags") {
+                print("fetch tags")
                 tagsSelectedJson = JSON.parse(tagsSelectedString)
             }
             else {
@@ -49,5 +50,8 @@ class UserProfileController: NSObject {
                 tag.selected = false
             }
         }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("TagsUpdate", object: nil)
+
     }
 }
