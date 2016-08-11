@@ -37,10 +37,17 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
 
+    func ifEmptyThenAddTutorial() {
+        if fetchedResultsController.fetchedObjects?.count == 0 {
+            loadSampleData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         everyFiveSecond()
         initializeFetchedResultsController()
+        ifEmptyThenAddTutorial()
         UserProfileController.sharedInstance.reloadTags()
         setupViews()
     }

@@ -30,6 +30,7 @@ extension RootViewController {
         }
         
         dispatch_group_notify(group, dispatch_get_main_queue()) {
+            self.ifEmptyThenAddTutorial()
             self.header.endRefreshing()
         }
     }
