@@ -5,7 +5,6 @@ import CoreData
 
 let cellId = "feedCell"
 
-
 class RootViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate {
     let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
     var settingsView = PreferenceViewController()
@@ -76,9 +75,8 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         if !UserProfileController.sharedInstance.zenMode {
             zenMode()
         }
-        //let rssItem = RssItem(title: posts[indexPath.row].title, creator: posts[indexPath.row].creator, pubDate: NSDate(), link: posts[indexPath.row].link, description: "", content: posts[indexPath.row].content, imageHeading: posts[indexPath.row].imageHeading, creatorAvatar: posts[indexPath.row].creatorAvatar)
-        //let articleContentViewController = ArticleContentViewController(rssItem: rssItem)
-        //navigationController?.pushViewController(articleContentViewController, animated: true)
+        let articleContentViewController = ArticleContentViewController(postItem: (fetchedResultsController.objectAtIndexPath(indexPath) as? PostItem)!)
+        navigationController?.pushViewController(articleContentViewController, animated: true)
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -93,7 +91,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             
         return CGSizeMake(view.frame.width, rect.height + knownHeight + 24)
     }
-    
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         
@@ -113,7 +110,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         
     }
-
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)

@@ -62,20 +62,7 @@ extension RootViewController {
     }
     
     func loadData() {
-        
-//        if let context = delegate?.managedObjectContext {
-//            
-//            let fetchRequest = NSFetchRequest(entityName: "PostItem")
-//            
-//            do {
-//                
-//                self.posts_ = try(context.executeFetchRequest(fetchRequest)) as! [PostItem]
-//                
-//            } catch let err {
-//                print(err)
-//            }
-//            
-//        }
+
     }
 
 }
