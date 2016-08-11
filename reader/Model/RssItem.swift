@@ -1,6 +1,6 @@
 import Foundation
 
-class RssItem {
+class Rss {
     
     var title: String
     var creator: String

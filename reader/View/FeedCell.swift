@@ -4,7 +4,7 @@ import SnapKit
 
 class FeedCell: UICollectionViewCell {
     
-    var post: RssItem? {
+    var post: PostItem? {
         didSet {
             
             profileImageView.image = nil
@@ -27,7 +27,7 @@ class FeedCell: UICollectionViewCell {
                 
             }
             
-            if let statusText = post?.description {
+            if let statusText = post?.abstract {
                 statusTextView.text = statusText
             }
             
