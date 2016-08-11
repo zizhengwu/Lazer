@@ -15,7 +15,6 @@ extension RootViewController {
         if let context = delegate?.managedObjectContext {
             
             do {
-                
                 let entityNames = ["PostItem"]
                 
                 for entityName in entityNames {
@@ -25,12 +24,9 @@ extension RootViewController {
                     
                     for object in objects! {
                         context.deleteObject(object)
+                        try(context.save())
                     }
                 }
-                
-                try(context.save())
-                
-                
             } catch let err {
                 print(err)
             }

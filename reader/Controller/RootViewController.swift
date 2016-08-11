@@ -40,7 +40,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        clearData()
         loadSampleData()
         initializeFetchedResultsController()
         
@@ -52,7 +51,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     {
         self.header.beginRefreshing()
         clearData()
-        collectionView?.reloadData()
         retrieveArticles()
     }
     
@@ -95,6 +93,27 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             
         return CGSizeMake(view.frame.width, rect.height + knownHeight + 24)
     }
+    
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            collectionView!.insertItemsAtIndexPaths([newIndexPath!])
+        case .Delete:
+            collectionView!.deleteItemsAtIndexPaths([indexPath!])
+        default:
+            print("not implemented yet")
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        
+    }
+
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
