@@ -19,7 +19,7 @@ An information hub that aims to provide meaningful relaxation to users.
 
 - posts and your time streak are cached
 
-![](https://i.imgur.com/odthel4.gif)
+![](https://i.imgur.com/wOPOELy.gif)
 
 - auto layout that is storyboards and xibs free
 
