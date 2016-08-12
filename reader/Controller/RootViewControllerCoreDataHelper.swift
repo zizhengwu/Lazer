@@ -3,11 +3,6 @@ import CoreData
 import UIKit
 
 extension RootViewController {
-    func setupData() {
-        clearData()
-        loadSampleData()
-        loadData()
-    }
     
     func clearData() {
         let delegate = UIApplication.sharedApplication().delegate as? AppDelegate

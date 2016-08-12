@@ -10,6 +10,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     var settingsView = PreferenceViewController()
     var timerButton: UIButton!
     var settingsButton: UIButton!
+    var getAroundBugWithInsertingIntoEmptyCollectionView = false
     let header: MJRefreshNormalHeader = {
         let header = MJRefreshNormalHeader()
         header.lastUpdatedTimeLabel.hidden = true
@@ -39,6 +40,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     func ifEmptyThenAddTutorial() {
         if fetchedResultsController.fetchedObjects?.count == 0 {
+            getAroundBugWithInsertingIntoEmptyCollectionView = true
             loadSampleData()
         }
     }
@@ -105,7 +107,12 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Insert:
-            collectionView!.insertItemsAtIndexPaths([newIndexPath!])
+            if getAroundBugWithInsertingIntoEmptyCollectionView {
+                collectionView?.reloadData()
+            }
+            else {
+                collectionView!.insertItemsAtIndexPaths([newIndexPath!])
+            }
         case .Delete:
             collectionView!.deleteItemsAtIndexPaths([indexPath!])
         default:
