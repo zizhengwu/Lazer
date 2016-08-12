@@ -4,6 +4,7 @@ import KVOController
 
 extension RootViewController {
     func everyFiveSecond() {
+//        print("current: \(NSDate())\nstart: \(Constant.startZenTime)\nend: \(Constant.endZenTime)")
         if NSDate().isGreaterThanDate(Constant.endZenTime) {
             removeTimeoutOverlay()
         }
@@ -47,7 +48,6 @@ extension RootViewController {
     }
     
     func zenMode() {
-        Constant.endZenTime = NSDate().addMinutes(Int(UserProfileController.sharedInstance.preferredRelaxationTime))
         NSUserDefaults.standardUserDefaults().setObject(NSDate().addSeconds(Int(UserProfileController.sharedInstance.preferredRelaxationTime)), forKey: "startZenTime")
         NSUserDefaults.standardUserDefaults().setObject(NSDate().addMinutes(Int(UserProfileController.sharedInstance.preferredRelaxationTime)), forKey: "endZenTime")
         NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: "firstReadTime")
