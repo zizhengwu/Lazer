@@ -14,10 +14,13 @@ extension RootViewController {
         
         if urlsToBeRetrieved.count == 0 {
             self.ifEmptyThenAddTutorial()
-            self.header.endRefreshing()
+            if (self.header.isRefreshing()) {
+                self.header.endRefreshing()
+            }
             return
         }
         
+        self.header.beginRefreshing()
         let group = dispatch_group_create()
         
         for url in urlsToBeRetrieved {

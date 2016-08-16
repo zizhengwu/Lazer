@@ -64,7 +64,6 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func refresh(sender:AnyObject)
     {
-        self.header.beginRefreshing()
         clearData()
         retrieveArticles()
     }
