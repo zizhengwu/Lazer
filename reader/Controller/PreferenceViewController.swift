@@ -215,7 +215,6 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
             }
         }
         LoginManager.sharedInstance.dataset?.setString(tagsSelectedJson.rawString(), forKey: "tags")
-        LoginManager.sharedInstance.sync()
         
         self.collectionView.reloadData()
     }

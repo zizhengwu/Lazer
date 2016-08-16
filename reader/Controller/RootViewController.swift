@@ -57,6 +57,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         if (Constant.shouldRefreshContent) {
+            LoginManager.sharedInstance.sync()
             Constant.shouldRefreshContent = false
             refresh(self)
         }
