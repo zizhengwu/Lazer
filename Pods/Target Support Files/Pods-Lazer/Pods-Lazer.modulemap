@@ -1,0 +1,6 @@
+framework module Pods_Lazer {
+  umbrella header "Pods-Lazer-umbrella.h"
+
+  export *
+  module * { export * }
+}

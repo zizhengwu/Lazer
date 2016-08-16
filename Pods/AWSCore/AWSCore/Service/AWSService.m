@@ -21,12 +21,44 @@
 #import "AWSLogging.h"
 #import "AWSCategory.h"
 
-NSString *const AWSiOSSDKVersion = @"2.3.6";
+NSString *const AWSiOSSDKVersion = @"2.4.7";
+NSString *const AWSServiceErrorDomain = @"com.amazonaws.AWSServiceErrorDomain";
+
 static NSString *const AWSServiceConfigurationUnknown = @"Unknown";
 
 #pragma mark - AWSService
 
 @implementation AWSService
+
++ (NSDictionary<NSString *, NSNumber *> *)errorCodeDictionary {
+    static NSDictionary *_errorCodeDictionary = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _errorCodeDictionary = @{
+                                @"RequestTimeTooSkewed" : @(AWSServiceErrorRequestTimeTooSkewed),
+                                @"InvalidSignatureException" : @(AWSServiceErrorInvalidSignatureException),
+                                @"RequestExpired" : @(AWSServiceErrorRequestExpired),
+                                @"SignatureDoesNotMatch" : @(AWSServiceErrorSignatureDoesNotMatch),
+                                @"AuthFailure" : @(AWSServiceErrorAuthFailure),
+                                @"AccessDeniedException" : @(AWSServiceErrorAccessDeniedException),
+                                @"UnrecognizedClientException" : @(AWSServiceErrorUnrecognizedClientException),
+                                @"IncompleteSignature" : @(AWSServiceErrorIncompleteSignature),
+                                @"InvalidClientTokenId" : @(AWSServiceErrorInvalidClientTokenId),
+                                @"MissingAuthenticationToken" : @(AWSServiceErrorMissingAuthenticationToken),
+                                @"AccessDenied" : @(AWSServiceErrorAccessDenied),
+                                @"ExpiredToken" : @(AWSServiceErrorExpiredToken),
+                                @"InvalidAccessKeyId" : @(AWSServiceErrorInvalidAccessKeyId),
+                                @"InvalidToken" : @(AWSServiceErrorInvalidToken),
+                                @"TokenRefreshRequired" : @(AWSServiceErrorTokenRefreshRequired),
+                                @"AccessFailure" : @(AWSServiceErrorAccessFailure),
+                                @"AuthMissingFailure" : @(AWSServiceErrorAuthMissingFailure),
+                                @"Throttling" : @(AWSServiceErrorThrottling),
+                                @"ThrottlingException" : @(AWSServiceErrorThrottlingException),
+                                };
+    });
+
+    return _errorCodeDictionary;
+}
 
 @end
 
@@ -64,18 +96,6 @@ static NSString *const AWSServiceConfigurationUnknown = @"Unknown";
     });
 }
 
-- (id)serviceForKey:(id)key {
-    return [self.dictionary objectForKey:key];
-}
-
-- (void)setService:(id)service forKey:(id)key {
-    [self.dictionary setObject:service forKey:key];
-}
-
-- (void)removeServiceForKey:(id)key {
-    [self.dictionary removeObjectForKey:key];
-}
-
 @end
 
 #pragma mark - AWSServiceConfiguration
@@ -105,13 +125,6 @@ static NSString *const AWSServiceConfigurationUnknown = @"Unknown";
     }
 
     return self;
-}
-
-+ (instancetype)configurationWithRegion:(AWSRegionType)regionType
-                    credentialsProvider:(id<AWSCredentialsProvider>)credentialsProvider {
-    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:regionType
-                                                                         credentialsProvider:credentialsProvider];
-    return configuration;
 }
 
 + (NSString *)baseUserAgent {
@@ -201,6 +214,7 @@ static NSString *const AWSRegionNameAPSoutheast1 = @"ap-southeast-1";
 static NSString *const AWSRegionNameAPNortheast1 = @"ap-northeast-1";
 static NSString *const AWSRegionNameAPNortheast2 = @"ap-northeast-2";
 static NSString *const AWSRegionNameAPSoutheast2 = @"ap-southeast-2";
+static NSString *const AWSRegionNameAPSouth1 = @"ap-south-1";
 static NSString *const AWSRegionNameSAEast1 = @"sa-east-1";
 static NSString *const AWSRegionNameCNNorth1 = @"cn-north-1";
 static NSString *const AWSRegionNameUSGovWest1 = @"us-gov-west-1";
@@ -209,6 +223,7 @@ static NSString *const AWSServiceNameAPIGateway = @"execute-api";
 static NSString *const AWSServiceNameAutoScaling = @"autoscaling";
 static NSString *const AWSServiceNameCloudWatch = @"monitoring";
 static NSString *const AWSServiceNameCognitoIdentity = @"cognito-identity";
+static NSString *const AWSServiceNameCognitoIdentityProvider = @"cognito-idp";
 static NSString *const AWSServiceNameCognitoSync = @"cognito-sync";
 static NSString *const AWSServiceNameDynamoDB = @"dynamodb";
 static NSString *const AWSServiceNameEC2 = @"ec2";
@@ -301,6 +316,8 @@ static NSString *const AWSServiceNameSTS = @"sts";
             return AWSRegionNameAPNortheast1;
         case AWSRegionAPNortheast2:
             return AWSRegionNameAPNortheast2;
+        case AWSRegionAPSouth1:
+            return AWSRegionNameAPSouth1;
         case AWSRegionSAEast1:
             return AWSRegionNameSAEast1;
         case AWSRegionCNNorth1:
@@ -322,6 +339,8 @@ static NSString *const AWSServiceNameSTS = @"sts";
             return AWSServiceNameCloudWatch;
         case AWSServiceCognitoIdentity:
             return AWSServiceNameCognitoIdentity;
+        case AWSServiceCognitoIdentityProvider:
+            return AWSServiceNameCognitoIdentityProvider;
         case AWSServiceCognitoSync:
             return AWSServiceNameCognitoSync;
         case AWSServiceDynamoDB:
@@ -378,6 +397,7 @@ static NSString *const AWSServiceNameSTS = @"sts";
             || regionType == AWSRegionAPNortheast1
             || regionType == AWSRegionAPNortheast2
             || regionType == AWSRegionAPSoutheast2
+            || regionType == AWSRegionAPSouth1
             || regionType == AWSRegionSAEast1
             || regionType == AWSRegionUSGovWest1)) {
             separator = @"-";

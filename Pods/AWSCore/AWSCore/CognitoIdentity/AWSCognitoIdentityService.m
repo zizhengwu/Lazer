@@ -30,6 +30,8 @@
 #import "FABKitProtocol.h"
 #import "Fabric+FABKits.h"
 
+static NSString *const AWSInfoCognitoIdentity = @"CognitoIdentity";
+
 @interface AWSCognitoIdentityResponseSerializer : AWSJSONResponseSerializer
 
 @end
@@ -44,6 +46,7 @@ static NSDictionary *errorCodeDictionary = nil;
                             @"IncompleteSignature" : @(AWSCognitoIdentityErrorIncompleteSignature),
                             @"InvalidClientTokenId" : @(AWSCognitoIdentityErrorInvalidClientTokenId),
                             @"MissingAuthenticationToken" : @(AWSCognitoIdentityErrorMissingAuthenticationToken),
+                            @"ConcurrentModificationException" : @(AWSCognitoIdentityErrorConcurrentModification),
                             @"DeveloperUserAlreadyRegisteredException" : @(AWSCognitoIdentityErrorDeveloperUserAlreadyRegistered),
                             @"ExternalServiceException" : @(AWSCognitoIdentityErrorExternalService),
                             @"InternalErrorException" : @(AWSCognitoIdentityErrorInternalError),
@@ -110,32 +113,6 @@ static NSDictionary *errorCodeDictionary = nil;
 
 @implementation AWSCognitoIdentityRequestRetryHandler
 
-- (AWSNetworkingRetryType)shouldRetry:(uint32_t)currentRetryCount
-                             response:(NSHTTPURLResponse *)response
-                                 data:(NSData *)data
-                                error:(NSError *)error {
-    AWSNetworkingRetryType retryType = [super shouldRetry:currentRetryCount
-                                                 response:response
-                                                     data:data
-                                                    error:error];
-    if(retryType == AWSNetworkingRetryTypeShouldNotRetry
-       && [error.domain isEqualToString:AWSCognitoIdentityErrorDomain]
-       && currentRetryCount < self.maxRetryCount) {
-        switch (error.code) {
-            case AWSCognitoIdentityErrorIncompleteSignature:
-            case AWSCognitoIdentityErrorInvalidClientTokenId:
-            case AWSCognitoIdentityErrorMissingAuthenticationToken:
-                retryType = AWSNetworkingRetryTypeShouldRefreshCredentialsAndRetry;
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    return retryType;
-}
-
 @end
 
 @interface AWSRequest()
@@ -159,8 +136,6 @@ static NSDictionary *errorCodeDictionary = nil;
 
 @implementation AWSCognitoIdentity
 
-static AWSSynchronizedMutableDictionary *_serviceClients = nil;
-
 #pragma mark - Fabric
 
 + (NSString *)bundleIdentifier {
@@ -178,9 +153,9 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
         && [fabricClass respondsToSelector:@selector(configurationDictionaryForKitClass:)]) {
         NSDictionary *configurationDictionary = [fabricClass configurationDictionaryForKitClass:[AWSCognitoIdentity class]];
         NSString *defaultRegionTypeString = configurationDictionary[@"AWSDefaultRegionType"];
-        AWSRegionType defaultRegionType = [self regionTypeFromString:defaultRegionTypeString];
+        AWSRegionType defaultRegionType = [defaultRegionTypeString aws_regionTypeValue];
         NSString *cognitoIdentityRegionTypeString = configurationDictionary[@"AWSCognitoIdentityRegionType"];
-        AWSRegionType cognitoIdentityRegionType = [self regionTypeFromString:cognitoIdentityRegionTypeString];
+        AWSRegionType cognitoIdentityRegionType = [cognitoIdentityRegionTypeString aws_regionTypeValue];
         NSString *cognitoIdentityPoolId = configurationDictionary[@"AWSCognitoIdentityPoolId"];
 
         static dispatch_once_t onceToken;
@@ -207,64 +182,31 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     }
 }
 
-// Converts a region string to AWSRegionType.
-+ (AWSRegionType)regionTypeFromString:(NSString *)regionTypeString {
-    if ([regionTypeString isEqualToString:@"AWSRegionUSEast1"]) {
-        return AWSRegionUSEast1;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionUSWest1"]) {
-        return AWSRegionUSWest1;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionUSWest2"]) {
-        return AWSRegionUSWest2;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionEUWest1"]) {
-        return AWSRegionEUWest1;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionEUCentral1"]) {
-        return AWSRegionEUCentral1;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionAPSoutheast1"]) {
-        return AWSRegionAPSoutheast1;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionAPNortheast1"]) {
-        return AWSRegionAPNortheast1;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionAPNortheast2"]) {
-        return AWSRegionAPNortheast2;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionAPSoutheast2"]) {
-        return AWSRegionAPSoutheast2;
-    }
-    if ([regionTypeString isEqualToString:@"AWSRegionSAEast1"]) {
-        return AWSRegionSAEast1;
-    }
-    /*
-     Amazon Cognito Identity is not support in the China region.
-     if ([regionTypeString isEqualToString:@"AWSRegionCNNorth1"]) {
-     return AWSRegionCNNorth1;
-     }
-     */
-
-    return AWSRegionUnknown;
-}
-
 #pragma mark - Setup
 
-+ (instancetype)defaultCognitoIdentity {
-    if (![AWSServiceManager defaultServiceManager].defaultServiceConfiguration) {
-        @throw [NSException exceptionWithName:NSInternalInconsistencyException
-                                       reason:@"`defaultServiceConfiguration` is `nil`. You need to set it before using this method."
-                                     userInfo:nil];
-    }
+static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
++ (instancetype)defaultCognitoIdentity {
     static AWSCognitoIdentity *_defaultCognitoIdentity = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        _defaultCognitoIdentity = [[AWSCognitoIdentity alloc] initWithConfiguration:AWSServiceManager.defaultServiceManager.defaultServiceConfiguration];
-#pragma clang diagnostic pop
+        AWSServiceConfiguration *serviceConfiguration = nil;
+        AWSServiceInfo *serviceInfo = [[AWSInfo defaultAWSInfo] defaultServiceInfo:AWSInfoCognitoIdentity];
+        if (serviceInfo) {
+            serviceConfiguration = [[AWSServiceConfiguration alloc] initWithRegion:serviceInfo.region
+                                                               credentialsProvider:serviceInfo.cognitoCredentialsProvider];
+        }
+
+        if (!serviceConfiguration) {
+            serviceConfiguration = [AWSServiceManager defaultServiceManager].defaultServiceConfiguration;
+        }
+
+        if (!serviceConfiguration) {
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                           reason:@"The service configuration is `nil`. You need to configure `Info.plist` or set `defaultServiceConfiguration` before using this method."
+                                         userInfo:nil];
+        }
+        _defaultCognitoIdentity = [[AWSCognitoIdentity alloc] initWithConfiguration:serviceConfiguration];
     });
 
     return _defaultCognitoIdentity;
@@ -275,15 +217,28 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     dispatch_once(&onceToken, ^{
         _serviceClients = [AWSSynchronizedMutableDictionary new];
     });
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [_serviceClients setObject:[[AWSCognitoIdentity alloc] initWithConfiguration:configuration]
                         forKey:key];
-#pragma clang diagnostic pop
 }
 
 + (instancetype)CognitoIdentityForKey:(NSString *)key {
-    return [_serviceClients objectForKey:key];
+    @synchronized(self) {
+        AWSCognitoIdentity *serviceClient = [_serviceClients objectForKey:key];
+        if (serviceClient) {
+            return serviceClient;
+        }
+
+        AWSServiceInfo *serviceInfo = [[AWSInfo defaultAWSInfo] serviceInfo:AWSInfoCognitoIdentity
+                                                                     forKey:key];
+        if (serviceInfo) {
+            AWSServiceConfiguration *serviceConfiguration = [[AWSServiceConfiguration alloc] initWithRegion:serviceInfo.region
+                                                                                        credentialsProvider:serviceInfo.cognitoCredentialsProvider];
+            [AWSCognitoIdentity registerCognitoIdentityWithConfiguration:serviceConfiguration
+                                                                  forKey:key];
+        }
+
+        return [_serviceClients objectForKey:key];
+    }
 }
 
 + (void)removeCognitoIdentityForKey:(NSString *)key {
@@ -296,6 +251,8 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                                  userInfo:nil];
     return nil;
 }
+
+#pragma mark -
 
 - (instancetype)initWithConfiguration:(AWSServiceConfiguration *)configuration {
     if (self = [super init]) {
@@ -383,16 +340,44 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     [[self createIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityPool *> * _Nonnull task) {
         AWSCognitoIdentityIdentityPool *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
+        
+        return nil;
+    }];
+}
 
+- (AWSTask<AWSCognitoIdentityDeleteIdentitiesResponse *> *)deleteIdentities:(AWSCognitoIdentityDeleteIdentitiesInput *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodPOST
+                     URLString:@""
+                  targetPrefix:@"AWSCognitoIdentityService"
+                 operationName:@"DeleteIdentities"
+                   outputClass:[AWSCognitoIdentityDeleteIdentitiesResponse class]];
+}
+
+- (void)deleteIdentities:(AWSCognitoIdentityDeleteIdentitiesInput *)request
+       completionHandler:(void (^)(AWSCognitoIdentityDeleteIdentitiesResponse *response, NSError *error))completionHandler {
+    [[self deleteIdentities:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityDeleteIdentitiesResponse *> * _Nonnull task) {
+        AWSCognitoIdentityDeleteIdentitiesResponse *result = task.result;
+        NSError *error = task.error;
+        
+        if (task.exception) {
+            AWSLogError(@"Fatal exception: [%@]", task.exception);
+            kill(getpid(), SIGKILL);
+        }
+        
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+        
         return nil;
     }];
 }
@@ -410,16 +395,16 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
          completionHandler:(void (^)(NSError *error))completionHandler {
     [[self deleteIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(error);
         }
-
+        
         return nil;
     }];
 }
@@ -438,16 +423,16 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     [[self describeIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityDescription *> * _Nonnull task) {
         AWSCognitoIdentityIdentityDescription *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -466,16 +451,16 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     [[self describeIdentityPool:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityIdentityPool *> * _Nonnull task) {
         AWSCognitoIdentityIdentityPool *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -494,16 +479,16 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     [[self getCredentialsForIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetCredentialsForIdentityResponse *> * _Nonnull task) {
         AWSCognitoIdentityGetCredentialsForIdentityResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -522,16 +507,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self getId:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetIdResponse *> * _Nonnull task) {
         AWSCognitoIdentityGetIdResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -550,16 +535,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self getIdentityPoolRoles:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetIdentityPoolRolesResponse *> * _Nonnull task) {
         AWSCognitoIdentityGetIdentityPoolRolesResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -578,16 +563,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self getOpenIdToken:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetOpenIdTokenResponse *> * _Nonnull task) {
         AWSCognitoIdentityGetOpenIdTokenResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -606,16 +591,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self getOpenIdTokenForDeveloperIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse *> * _Nonnull task) {
         AWSCognitoIdentityGetOpenIdTokenForDeveloperIdentityResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -634,16 +619,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self listIdentities:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityListIdentitiesResponse *> * _Nonnull task) {
         AWSCognitoIdentityListIdentitiesResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -662,16 +647,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self listIdentityPools:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityListIdentityPoolsResponse *> * _Nonnull task) {
         AWSCognitoIdentityListIdentityPoolsResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -690,16 +675,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self lookupDeveloperIdentity:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityLookupDeveloperIdentityResponse *> * _Nonnull task) {
         AWSCognitoIdentityLookupDeveloperIdentityResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -718,16 +703,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
     [[self mergeDeveloperIdentities:request] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityMergeDeveloperIdentitiesResponse *> * _Nonnull task) {
         AWSCognitoIdentityMergeDeveloperIdentitiesResponse *result = task.result;
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(result, error);
         }
-
+        
         return nil;
     }];
 }
@@ -745,16 +730,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
            completionHandler:(void (^)(NSError *error))completionHandler {
     [[self setIdentityPoolRoles:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(error);
         }
-
+        
         return nil;
     }];
 }
@@ -772,16 +757,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
               completionHandler:(void (^)(NSError *error))completionHandler {
     [[self unlinkDeveloperIdentity:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(error);
         }
-
+        
         return nil;
     }];
 }
@@ -799,16 +784,16 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
      completionHandler:(void (^)(NSError *error))completionHandler {
     [[self unlinkIdentity:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
         NSError *error = task.error;
-
+        
         if (task.exception) {
             AWSLogError(@"Fatal exception: [%@]", task.exception);
             kill(getpid(), SIGKILL);
         }
-
+        
         if (completionHandler) {
             completionHandler(error);
         }
-
+        
         return nil;
     }];
 }
@@ -840,5 +825,7 @@ completionHandler:(void (^)(AWSCognitoIdentityGetIdResponse *response, NSError *
         return nil;
     }];
 }
+
+#pragma mark -
 
 @end
