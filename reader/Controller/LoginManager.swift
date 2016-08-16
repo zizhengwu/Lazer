@@ -22,6 +22,7 @@ class LoginManager: NSObject {
 
     override init() {
         super.init()
+        AWSLogger.defaultLogger().logLevel = .Warn
         self.credentialsProvider = AWSCognitoCredentialsProvider(regionType: Constant.COGNITO_REGIONTYPE, identityPoolId: Constant.COGNITO_IDENTITY_POOL_ID)
         let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
@@ -33,7 +34,7 @@ class LoginManager: NSObject {
     
     func facebookLogin() {
         if let token = FBSDKAccessToken.currentAccessToken() {
-            self.credentialsProvider!.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token.tokenString]
+            self.credentialsProvider!.logins = [AWSIdentityProviderFacebook: token.tokenString]
             print("Facebook already logged in")
             self.credentialsProvider!.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
                 if (task.error != nil) {
