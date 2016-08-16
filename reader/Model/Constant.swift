@@ -23,6 +23,7 @@ class Constant {
             return NSUserDefaults.standardUserDefaults().objectForKey("firstReadTime") as? NSDate ?? NSDate()
         }
     }
+    static var shouldRefreshContent: Bool = false
     static func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,

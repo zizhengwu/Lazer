@@ -54,6 +54,14 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         setupViews()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        if (Constant.shouldRefreshContent) {
+            Constant.shouldRefreshContent = false
+            refresh(self)
+        }
+    }
+    
     func refresh(sender:AnyObject)
     {
         self.header.beginRefreshing()

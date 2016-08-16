@@ -204,6 +204,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        Constant.shouldRefreshContent = true
         collectionView.deselectItemAtIndexPath(indexPath, animated: false)
         UserProfileController.sharedInstance.tags[indexPath.row].selected = !UserProfileController.sharedInstance.tags[indexPath.row].selected
         
