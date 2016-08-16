@@ -30,7 +30,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
             self.collectionView.reloadData()
         }
     }
-
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Constant.TAG_OPTIONS.count
     }
@@ -152,7 +152,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                 self?.avatarImageView?.image = nil
             }
         }
-
+        
     }
     
     func clickOnAvatar() {
@@ -189,7 +189,7 @@ class PreferenceViewController: UIViewController, UICollectionViewDelegateFlowLa
                 alert.title = "Offline"
             }
         }
-
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
         alert.popoverPresentationController?.sourceView = avatarImageView

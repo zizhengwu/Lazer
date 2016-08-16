@@ -52,6 +52,6 @@ class UserProfileController: NSObject {
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName("TagsUpdate", object: nil)
-
+        
     }
 }

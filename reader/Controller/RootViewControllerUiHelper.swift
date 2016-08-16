@@ -4,7 +4,7 @@ import KVOController
 
 extension RootViewController {
     func everyFiveSecond() {
-//        print("current: \(NSDate())\nstart: \(Constant.startZenTime)\nend: \(Constant.endZenTime)")
+        //        print("current: \(NSDate())\nstart: \(Constant.startZenTime)\nend: \(Constant.endZenTime)")
         if NSDate().isGreaterThanDate(Constant.endZenTime) {
             removeTimeoutOverlay()
         }

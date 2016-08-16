@@ -37,7 +37,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
     }
-
+    
     func ifEmptyThenAddTutorial() {
         if fetchedResultsController.fetchedObjects?.count == 0 {
             getAroundBugWithInsertingIntoEmptyCollectionView = true
@@ -76,7 +76,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-            return fetchedResultsController.sections!.count
+        return fetchedResultsController.sections!.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -94,17 +94,17 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         let articleContentViewController = ArticleContentViewController(postItem: (fetchedResultsController.objectAtIndexPath(indexPath) as? PostItem)!)
         navigationController?.pushViewController(articleContentViewController, animated: true)
     }
-
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         let postItem = fetchedResultsController.objectAtIndexPath(indexPath) as! PostItem
         
         let statusText = postItem.abstract
-            
+        
         let rect = NSString(string: statusText!).boundingRectWithSize(CGSizeMake(view.frame.width, 1000), options: NSStringDrawingOptions.UsesFontLeading.union(NSStringDrawingOptions.UsesLineFragmentOrigin), attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)], context: nil)
         
         let knownHeight: CGFloat = 8 + 44 + 4 + 4 + 200
-            
+        
         return CGSizeMake(view.frame.width, rect.height + knownHeight + 24)
     }
     

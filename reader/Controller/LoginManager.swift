@@ -19,7 +19,7 @@ class LoginManager: NSObject {
     var dataset: AWSCognitoDataset?
     var credentialsProvider: AWSCognitoCredentialsProvider?
     
-
+    
     override init() {
         super.init()
         AWSLogger.defaultLogger().logLevel = .Warn

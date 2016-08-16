@@ -13,7 +13,7 @@ import Foundation
 import CoreData
 
 extension PostItem {
-
+    
     @NSManaged var title: String?
     @NSManaged var creator: String?
     @NSManaged var creatorAvatar: String?
@@ -22,5 +22,5 @@ extension PostItem {
     @NSManaged var pubDate: NSDate?
     @NSManaged var abstract: String?
     @NSManaged var content: String?
-
+    
 }
