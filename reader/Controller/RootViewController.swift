@@ -59,7 +59,7 @@ class RootViewController: UICollectionViewController, UICollectionViewDelegateFl
         if (Constant.shouldRefreshContent) {
             LoginManager.sharedInstance.sync()
             Constant.shouldRefreshContent = false
-            refresh(self)
+            self.header.beginRefreshing()
         }
     }
     
