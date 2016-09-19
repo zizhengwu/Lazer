@@ -19,8 +19,7 @@ extension RootViewController {
             }
             return
         }
-        
-        self.header.beginRefreshing()
+
         let group = dispatch_group_create()
         
         for url in urlsToBeRetrieved {
