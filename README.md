@@ -1,7 +1,7 @@
 Lazer - Pomodoro reader
 ---
 
-An information hub that aims to provide meaningful relaxation to you.
+An information hub that wants to provide meaningful relaxation to you.
 
 <a href="https://itunes.apple.com/us/app/lazer-pomodoro-reader/id1100925706?mt=8">
 <img src="https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.png" /></a>
